@@ -1,0 +1,9 @@
+@use 'reset';
+@use 'colors';
+@use 'fonts';
+
+body {
+    background-color: colors.$main-color-dark;
+    color: colors.$main-color-light;
+    font-family: fonts.$main-font;
+}

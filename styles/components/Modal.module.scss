@@ -1,0 +1,60 @@
+@use '../colors';
+
+$dialogWindowId: 'dialogWindowId';
+$dialog-window-padding: 20px;
+$title-font-size: 48px;
+$label-font-size: 20px;
+$main-border-radius: 15px;
+$button-padding: 8px;
+$button-font-size: 18px;
+$button-transition-time: 0.4s;
+$input-padding: 6px;
+$input-font-size: 20px;
+
+##{$dialogWindowId} {
+    align-self: safe center;
+    background-color: colors.$secondary-color-dark;
+    border-style: none;
+    border-radius: $main-border-radius;
+    padding: $dialog-window-padding;
+
+    // Title
+    h3 {
+        color: colors.$main-color-light;
+        font-size: $title-font-size;
+    }
+
+    label {
+        color: colors.$main-color-light;
+        font-size: $label-font-size;
+    }
+
+    input {
+        background-color: colors.$secondary-color-light;
+        color: colors.$main-color-dark;
+        border-style: none;
+        border-radius: $main-border-radius;
+        padding: $input-padding;
+        font-size: $input-font-size;
+    }
+
+    button {
+        background-color: colors.$main-color-light;
+        color: colors.$main-color-dark;
+        border-style: none;
+        border-radius: $main-border-radius;
+        padding: $button-padding;
+        font-size: $button-font-size;
+        transition: background-color $button-transition-time, color $button-transition-time;
+    }
+
+    button:hover {
+        cursor: pointer;
+        background-color: colors.$main-color-dark;
+        color: colors.$main-color-light;
+    }
+}
+
+:export {
+    dialogWindowId: $dialogWindowId;
+}
