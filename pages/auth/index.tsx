@@ -7,7 +7,7 @@ const Index = () => {
         <>
             <AuthLayout>
                 <Modal 
-                    title="Вход" 
+                    title="Вход"
                     inputs={ [
                         { 
                             id: '1',

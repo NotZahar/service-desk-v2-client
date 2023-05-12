@@ -1,60 +1,94 @@
 @use '../colors';
+@use '../general';
 
-$dialogWindowId: 'dialogWindowId';
-$dialog-window-padding: 20px;
+$modalWindowId: 'modalWindowId';
+$modalContentId: 'modalContentId';
+$buttonsId: 'buttonsId';
+
+$modal-content-padding-main: 20px;
+$modal-content-padding-secondary: 10px;
+
 $title-font-size: 48px;
-$label-font-size: 20px;
-$main-border-radius: 15px;
-$button-padding: 8px;
-$button-font-size: 18px;
-$button-transition-time: 0.4s;
-$input-padding: 6px;
-$input-font-size: 20px;
+$title-margin-bottom: 12px;
 
-##{$dialogWindowId} {
-    align-self: safe center;
-    background-color: colors.$secondary-color-dark;
+##{$modalWindowId} {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(colors.$main-color-dark-rgb, colors.$main-color-dark-rgb, colors.$main-color-dark-rgb, 0.8);
     border-style: none;
-    border-radius: $main-border-radius;
-    padding: $dialog-window-padding;
+}
+
+##{$modalContentId} {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    background-color: colors.$secondary-color-dark;
+    border-radius: general.$main-border-radius;
+    padding: $modal-content-padding-secondary $modal-content-padding-main $modal-content-padding-main $modal-content-padding-main;
+    
+    ##{$buttonsId} {
+        display: flex;
+        flex-direction: row;
+    }
 
     // Title
     h3 {
+        text-align: center;
         color: colors.$main-color-light;
         font-size: $title-font-size;
-    }
-
-    label {
-        color: colors.$main-color-light;
-        font-size: $label-font-size;
+        margin-bottom: $title-margin-bottom;
     }
 
     input {
+        width: general.$input-width;
         background-color: colors.$secondary-color-light;
         color: colors.$main-color-dark;
         border-style: none;
-        border-radius: $main-border-radius;
-        padding: $input-padding;
-        font-size: $input-font-size;
+        border-radius: general.$input-border-radius;
+        padding: general.$input-padding;
+        margin-bottom: general.$input-margin-bottom;
+        font-size: general.$input-font-size;
+
+        &::placeholder {
+            color: colors.$secondary-color-dark;
+            opacity: general.$input-placeholder-opacity;
+        }
+
+        &:focus {
+            outline: solid general.$input-focus-outline-width colors.$accept-color;
+        }
     }
 
     button {
-        background-color: colors.$main-color-light;
+        height: fit-content;
+        width: fit-content;
+        background-color: colors.$accept-color;
         color: colors.$main-color-dark;
         border-style: none;
-        border-radius: $main-border-radius;
-        padding: $button-padding;
-        font-size: $button-font-size;
-        transition: background-color $button-transition-time, color $button-transition-time;
-    }
+        border-radius: general.$button-border-radius;
+        padding: general.$button-padding;
+        margin-right: general.$button-margin-right;
+        font-size: general.$button-font-size;
+        transition: background-color general.$button-transition-time, color general.$button-transition-time;
 
-    button:hover {
-        cursor: pointer;
-        background-color: colors.$main-color-dark;
-        color: colors.$main-color-light;
+        &:hover {
+            cursor: pointer;
+            background-color: colors.$main-color-dark;
+            color: colors.$main-color-light;
+        }
     }
 }
 
 :export {
-    dialogWindowId: $dialogWindowId;
+    modalWindowId: $modalWindowId;
+    modalContentId: $modalContentId;
+    buttonsId: $buttonsId;
 }

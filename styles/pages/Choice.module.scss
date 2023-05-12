@@ -1,0 +1,76 @@
+@use '../colors';
+@use '../general';
+
+$choiceId: 'choiceId';
+$choiceClass: 'choiceClass';
+$employeeId: 'employeeId'; 
+$customerId: 'customerId'; 
+
+$choice-id-width: 100%;
+
+$choice-class-width: 20vw;
+$choice-class-border-radius: 10px;
+$choice-class-padding: 8px;
+$choice-class-font-size: 30px;
+
+$text-margin-left: 15px;
+
+$employee-image-width: 45px;
+$employee-image-height: 45px;
+
+$customer-image-width: 45px;
+$customer-image-height: 45px;
+
+##{$choiceId} {
+    width: $choice-id-width;
+    display: flex;
+    flex-direction: column;
+
+    .#{$choiceClass} {
+        width: $choice-class-width;
+        height: fit-content;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        background-color: colors.$accept-color;
+        color: colors.$main-color-dark;
+        border-radius: $choice-class-border-radius;
+        padding: $choice-class-padding;
+        font-size: $choice-class-font-size;
+        transition: background-color general.$button-transition-time, color general.$button-transition-time;
+
+        &:hover {
+            cursor: pointer;
+            background-color: colors.$main-color-dark;
+            color: colors.$main-color-light;
+        }
+
+        p {
+            margin-left: $text-margin-left;
+        }
+    }
+
+    ##{$employeeId} {
+        margin-bottom: general.$input-margin-bottom;
+
+        img {
+            width: $employee-image-width;
+            height: $employee-image-height;
+        }
+    }
+
+    ##{$customerId} {
+        img {
+            width: $customer-image-width;
+            height: $customer-image-height;
+        }
+    }
+}
+
+:export {
+    choiceId: $choiceId;
+    choiceClass: $choiceClass;
+    employeeId: $employeeId;
+    customerId: $customerId;
+}

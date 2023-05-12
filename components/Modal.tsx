@@ -1,46 +1,47 @@
 import useUUID from "@/hooks/useUUID";
 import { IInput, IButton } from "@/types/base";
-import { useEffect } from "react";
 import CSSVariables from "../styles/components/Modal.module.scss";
 
 interface ModalProps {
-    title: string;
-    inputs: IInput[];
-    buttons: IButton[];
+    title?: string;
+    inputs?: IInput[];
+    buttons?: IButton[];
     show: boolean;
     children?: React.ReactNode;
 }
 
 const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, show, children }) => {
-    const inputsKeys = useUUID(inputs.length);
-    const buttonsKeys = useUUID(buttons.length);
-
-    useEffect(() => {
-        // TODO: prevent close
-        show && (document.getElementById(CSSVariables.dialogWindowId) as HTMLDialogElement).showModal();
-    });
+    const inputsKeys = useUUID( inputs ? inputs.length : 0 );
+    const buttonsKeys = useUUID( buttons ? buttons.length : 0);
     
     return (
+        show ?
         <>
-            <dialog id={ CSSVariables.dialogWindowId }> // TODO: change dialog to div
-                <>
+            <div id={ CSSVariables.modalWindowId }>
+                <div id={ CSSVariables.modalContentId }>
                     <h3>{ title }</h3>
-                    { inputs.map(({ id, className, label }, index) => {
-                        return ( 
-                            <div key={ inputsKeys[index] }>
-                                <label htmlFor={ id }>{ label }</label>
-                                <input id={ id } className={ className } type="text" />
-                            </div>
-                        );
-                    }) }
+                    {   inputs ?
+                        inputs.map(({ id, className, label }, index) => {
+                            return ( 
+                                <div key={ inputsKeys[index] }>
+                                    <input id={ id } className={ className } type="text" placeholder={ label } />
+                                </div>
+                            );
+                        }) : <></>
+                    }
 
-                    { buttons.map(({ id, className, text }, index) => {
-                        return <button id={ id } className={ className } key={ buttonsKeys[index] } type="button">{ text }</button>;
-                    }) }
-                </>
-            </dialog>
-            { children }
-        </>
+                    {   buttons ?
+                        <div id={ CSSVariables.buttonsId }>
+                            {   buttons.map(({ id, className, text }, index) => {
+                                    return <button id={ id } className={ className } key={ buttonsKeys[index] } type="button">{ text }</button>;
+                            }) }
+                        </div> : <></>
+                    }
+
+                    { children }
+                </div>
+            </div>
+        </> : <></>
     );
 };
 
