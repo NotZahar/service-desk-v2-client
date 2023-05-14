@@ -1,0 +1,27 @@
+@use '../pages/choice.module' as choice;
+@use '../colors';
+
+$choiceButtons: 'choiceButtons';
+$yesButtonId: 'yesButtonId'; 
+$noButtonId: 'noButtonId'; 
+
+.#{$choiceButtons} {
+    flex-grow: 1;
+    font-size: choice.$choice-class-font-size !important;
+}
+
+##{$noButtonId} {
+    background-color: colors.$main-color-light !important;
+    color: colors.$main-color-dark !important;
+
+    &:hover {
+        background-color: colors.$main-color-dark !important;
+        color: colors.$main-color-light !important;
+    }
+}
+
+:export {
+    choiceButtons: $choiceButtons;
+    yesButtonId: $yesButtonId; 
+    noButtonId: $noButtonId; 
+}

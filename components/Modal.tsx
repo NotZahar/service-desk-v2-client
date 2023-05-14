@@ -1,6 +1,6 @@
 import useUUID from "@/hooks/useUUID";
 import { IInput, IButton } from "@/types/base";
-import CSSVariables from "../styles/components/Modal.module.scss";
+import modalCSSVariables from "../styles/components/Modal.module.scss";
 
 interface ModalProps {
     title?: string;
@@ -17,8 +17,8 @@ const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, show, children })
     return (
         show ?
         <>
-            <div id={ CSSVariables.modalWindowId }>
-                <div id={ CSSVariables.modalContentId }>
+            <div id={ modalCSSVariables.modalWindowId }>
+                <div id={ modalCSSVariables.modalContentId }>
                     <h3>{ title }</h3>
                     {   inputs ?
                         inputs.map(({ id, className, label }, index) => {
@@ -31,7 +31,7 @@ const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, show, children })
                     }
 
                     {   buttons ?
-                        <div id={ CSSVariables.buttonsId }>
+                        <div id={ modalCSSVariables.buttonsId }>
                             {   buttons.map(({ id, className, text }, index) => {
                                     return <button id={ id } className={ className } key={ buttonsKeys[index] } type="button">{ text }</button>;
                             }) }

@@ -7,6 +7,7 @@ $buttonsId: 'buttonsId';
 
 $modal-content-padding-main: 20px;
 $modal-content-padding-secondary: 10px;
+$modal-content-width-default: 25vw;
 
 $title-font-size: 48px;
 $title-margin-bottom: 12px;
@@ -28,15 +29,38 @@ $title-margin-bottom: 12px;
 ##{$modalContentId} {
     display: flex;
     flex-direction: column;
-    width: fit-content;
+    width: $modal-content-width-default;
     height: fit-content;
     background-color: colors.$secondary-color-dark;
     border-radius: general.$main-border-radius;
     padding: $modal-content-padding-secondary $modal-content-padding-main $modal-content-padding-main $modal-content-padding-main;
-    
+
     ##{$buttonsId} {
         display: flex;
         flex-direction: row;
+
+        button {
+            height: fit-content;
+            width: fit-content;
+            background-color: colors.$main-accept-color;
+            color: colors.$main-color-dark;
+            border-style: none;
+            border-radius: general.$button-border-radius;
+            padding: general.$button-padding;
+            margin-right: general.$button-margin-right;
+            font-size: general.$button-font-size;
+            transition: background-color general.$button-transition-time, color general.$button-transition-time;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: colors.$main-color-dark;
+                color: colors.$main-color-light;
+            }
+        }
     }
 
     // Title
@@ -63,26 +87,7 @@ $title-margin-bottom: 12px;
         }
 
         &:focus {
-            outline: solid general.$input-focus-outline-width colors.$accept-color;
-        }
-    }
-
-    button {
-        height: fit-content;
-        width: fit-content;
-        background-color: colors.$accept-color;
-        color: colors.$main-color-dark;
-        border-style: none;
-        border-radius: general.$button-border-radius;
-        padding: general.$button-padding;
-        margin-right: general.$button-margin-right;
-        font-size: general.$button-font-size;
-        transition: background-color general.$button-transition-time, color general.$button-transition-time;
-
-        &:hover {
-            cursor: pointer;
-            background-color: colors.$main-color-dark;
-            color: colors.$main-color-light;
+            outline: solid general.$input-focus-outline-width colors.$main-accept-color;
         }
     }
 }

@@ -8,7 +8,7 @@ $customerId: 'customerId';
 
 $choice-id-width: 100%;
 
-$choice-class-width: 20vw;
+$choice-class-width: 100%;
 $choice-class-border-radius: 10px;
 $choice-class-padding: 8px;
 $choice-class-font-size: 30px;
@@ -33,7 +33,7 @@ $customer-image-height: 45px;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        background-color: colors.$accept-color;
+        background-color: colors.$main-accept-color;
         color: colors.$main-color-dark;
         border-radius: $choice-class-border-radius;
         padding: $choice-class-padding;

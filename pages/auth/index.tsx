@@ -1,8 +1,11 @@
 import Modal from "@/components/Modal";
+// import { useTypedSelector } from "@/hooks/useTypedSelector";
 import AuthLayout from "@/layouts/AuthLayout";
 // import CSSVariables from "../../styles/pages/Auth.module.scss";
 
 const Index = () => {
+    // const { userChoice } = useTypedSelector(state => state.authReducer);
+
     return (
         <>
             <AuthLayout>

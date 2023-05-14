@@ -1,6 +1,7 @@
-import { Context } from "next-redux-wrapper";
-import { legacy_createStore } from "redux";
+import { createWrapper } from "next-redux-wrapper";
+import { legacy_createStore, Store } from "redux";
+import { reducer, RootState } from "./reducers";
 
-const makeStore = (context: Context) => legacy_createStore(reducer); // TODO: 
+const makeStore = () => legacy_createStore(reducer); 
 
-export const wrapper = createWrapper<Store<State>>(makeStore, {debug: true});
+export const wrapper = createWrapper<Store<RootState>>(makeStore);
