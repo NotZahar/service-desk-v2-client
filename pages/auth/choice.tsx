@@ -23,8 +23,7 @@ const Choice = () => {
         <>
             <AuthLayout>
                 <Modal 
-                    title="Вы..."
-                    show={ true }>
+                    title="Вы...">
                     <div id={ choiceCSSVariables.choiceId }>
                         <div id={ choiceCSSVariables.employeeId } className={ choiceCSSVariables.choiceClass } onClick={ employeeSelected }>
                             <Image

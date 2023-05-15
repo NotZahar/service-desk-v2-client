@@ -8,10 +8,11 @@ import modalCSSVariables from "../../styles/components/Modal.module.scss";
 const CustomerChoice = () => {
     const router = useRouter();
 
+    const yes = () => { router.push('/auth'); };
+    const no = () => { router.push('/auth/customer-registration'); };
+
     useEffect(() => {
         document.getElementById(modalCSSVariables.modalContentId)!.style.width = 'fit-content';
-        document.getElementById(customerChoiceCSSVariables.yesButtonId)!.onclick = () => { router.push('/auth'); };
-        document.getElementById(customerChoiceCSSVariables.noButtonId)!.onclick = () => { router.push('/auth/customer-registration'); };
     });
 
     return (
@@ -20,18 +21,9 @@ const CustomerChoice = () => {
                 <Modal 
                     title="Вы зарегистрированы?"
                     buttons={ [
-                        { 
-                            id: customerChoiceCSSVariables.yesButtonId,
-                            className: customerChoiceCSSVariables.choiceButtons,
-                            text: 'Да' 
-                        },
-                        {
-                            id: customerChoiceCSSVariables.noButtonId,
-                            className: customerChoiceCSSVariables.choiceButtons,
-                            text: 'Нет'
-                        }
-                    ] }
-                    show={ true } />   
+                        { id: customerChoiceCSSVariables.yesButtonId, className: customerChoiceCSSVariables.choiceButtons, text: 'Да', onClick: yes },
+                        { id: customerChoiceCSSVariables.noButtonId, className: customerChoiceCSSVariables.choiceButtons, text: 'Нет', onClick: no }
+                    ] } />   
             </AuthLayout>
         </>
     );

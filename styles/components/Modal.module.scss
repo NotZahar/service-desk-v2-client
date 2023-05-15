@@ -4,6 +4,8 @@
 $modalWindowId: 'modalWindowId';
 $modalContentId: 'modalContentId';
 $buttonsId: 'buttonsId';
+$inputsId: 'inputsId';
+$errorsId: 'errorsId';
 
 $modal-content-padding-main: 20px;
 $modal-content-padding-secondary: 10px;
@@ -71,23 +73,25 @@ $title-margin-bottom: 12px;
         margin-bottom: $title-margin-bottom;
     }
 
-    input {
-        width: general.$input-width;
-        background-color: colors.$secondary-color-light;
-        color: colors.$main-color-dark;
-        border-style: none;
-        border-radius: general.$input-border-radius;
-        padding: general.$input-padding;
-        margin-bottom: general.$input-margin-bottom;
-        font-size: general.$input-font-size;
-
-        &::placeholder {
-            color: colors.$secondary-color-dark;
-            opacity: general.$input-placeholder-opacity;
-        }
-
-        &:focus {
-            outline: solid general.$input-focus-outline-width colors.$main-accept-color;
+    ##{$inputsId} {
+        input {
+            width: general.$input-width;
+            background-color: colors.$secondary-color-light;
+            color: colors.$main-color-dark;
+            border-style: none;
+            border-radius: general.$input-border-radius;
+            padding: general.$input-padding;
+            margin-bottom: general.$input-margin-bottom;
+            font-size: general.$input-font-size;
+    
+            &::placeholder {
+                color: colors.$secondary-color-dark;
+                opacity: general.$input-placeholder-opacity;
+            }
+    
+            &:focus {
+                outline: solid general.$input-focus-outline-width colors.$main-accept-color;
+            }
         }
     }
 }
@@ -96,4 +100,6 @@ $title-margin-bottom: 12px;
     modalWindowId: $modalWindowId;
     modalContentId: $modalContentId;
     buttonsId: $buttonsId;
+    inputsId: $inputsId;
+    errorsId: $errorsId;
 }

@@ -29,8 +29,7 @@ const Index = () => {
                             className: '4',
                             text: 'Войти' 
                         }
-                    ] }
-                    show={ true } />
+                    ] } />
             </AuthLayout>
         </>
     );
