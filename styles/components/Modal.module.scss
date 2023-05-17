@@ -3,6 +3,8 @@
 
 $modalWindowId: 'modalWindowId';
 $modalContentId: 'modalContentId';
+$modalContentWidthFitContent: 'modalContentWidthFitContent';
+$modalContentWidthDefault: 'modalContentWidthDefault';
 $buttonsId: 'buttonsId';
 $inputsId: 'inputsId';
 $errorsId: 'errorsId';
@@ -10,6 +12,7 @@ $errorsId: 'errorsId';
 $modal-content-padding-main: 20px;
 $modal-content-padding-secondary: 10px;
 $modal-content-width-default: 25vw;
+$modal-content-width-fit-content: fit-content;
 
 $title-font-size: 48px;
 $title-margin-bottom: 12px;
@@ -28,14 +31,44 @@ $title-margin-bottom: 12px;
     border-style: none;
 }
 
+.#{$modalContentWidthDefault} {
+    width: $modal-content-width-default;
+}
+
+.#{$modalContentWidthFitContent} {
+    width: $modal-content-width-fit-content;
+}
+
 ##{$modalContentId} {
     display: flex;
     flex-direction: column;
-    width: $modal-content-width-default;
     height: fit-content;
     background-color: colors.$secondary-color-dark;
     border-radius: general.$main-border-radius;
     padding: $modal-content-padding-secondary $modal-content-padding-main $modal-content-padding-main $modal-content-padding-main;
+
+    // Title
+    h3 {
+        text-align: center;
+        color: colors.$main-color-light;
+        font-size: $title-font-size;
+        margin-bottom: $title-margin-bottom;
+    }
+
+    ##{$errorsId} {
+        display: flex;
+        flex-direction: column;
+
+        p {
+            width: general.$p-width;
+            background-color: colors.$main-color-light;
+            color: colors.$main-error-color;
+            border-radius: general.$p-border-radius;
+            padding: general.$p-padding;
+            margin-bottom: general.$p-margin-bottom;
+            font-size: general.$p-font-size;
+        }
+    }
 
     ##{$buttonsId} {
         display: flex;
@@ -65,14 +98,6 @@ $title-margin-bottom: 12px;
         }
     }
 
-    // Title
-    h3 {
-        text-align: center;
-        color: colors.$main-color-light;
-        font-size: $title-font-size;
-        margin-bottom: $title-margin-bottom;
-    }
-
     ##{$inputsId} {
         input {
             width: general.$input-width;
@@ -99,6 +124,8 @@ $title-margin-bottom: 12px;
 :export {
     modalWindowId: $modalWindowId;
     modalContentId: $modalContentId;
+    modalContentWidthFitContent: $modalContentWidthFitContent;
+    modalContentWidthDefault: $modalContentWidthFitContent;
     buttonsId: $buttonsId;
     inputsId: $inputsId;
     errorsId: $errorsId;

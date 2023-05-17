@@ -7,10 +7,11 @@ interface ModalProps {
     inputs?: IInput[];
     buttons?: IButton[];
     errors?: IError[];
+    widthFitContent?: boolean;
     children?: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, errors, children }) => {
+const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, errors, widthFitContent, children }) => {
     const inputsKeys = useUUID( inputs ? inputs.length : 0 );
     const buttonsKeys = useUUID( buttons ? buttons.length : 0);
     const errorsKeys = useUUID( errors ? errors.length : 0);
@@ -18,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, errors, children 
     return (
         <>
             <div id={ modalCSSVariables.modalWindowId }>
-                <div id={ modalCSSVariables.modalContentId }>
+                <div id={ modalCSSVariables.modalContentId } className={ widthFitContent ? modalCSSVariables.modalContentWidthFitContent : modalCSSVariables.modalContentWidthDefault }>
                     <h3>{ title }</h3>
                     {   inputs &&
                         <div id={ modalCSSVariables.inputsId }>

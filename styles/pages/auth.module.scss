@@ -1,0 +1,19 @@
+@use '../colors';
+
+$enterButtonId: 'enterButtonId'; 
+$backButtonId: 'backButtonId'; 
+
+##{$backButtonId} {
+    background-color: colors.$main-color-light !important;
+    color: colors.$main-color-dark !important;
+
+    &:hover {
+        background-color: colors.$main-color-dark !important;
+        color: colors.$main-color-light !important;
+    }
+}
+
+:export {
+    enterButtonId: $enterButtonId; 
+    backButtonId: $backButtonId; 
+}
