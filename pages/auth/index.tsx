@@ -4,7 +4,7 @@ import { ifEmptyToNull, toStringArray } from "@/helpers/transform";
 import { useActions } from "@/hooks/useActions";
 import { useTypedSelector } from "@/hooks/useTypedSelector";
 import AuthLayout from "@/layouts/AuthLayout";
-import { basePath, storageAuthTokenName } from "@/server-config";
+import { basePath, storageAuthTokenName, storageRoleName } from "@/server-config";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
@@ -23,27 +23,34 @@ const Index = () => {
     const enter = async () => {
         try {
             switch (userChoice) {
-                case 'customer':
-                    const response = await axios.post(`${basePath}/auth/login-customer`, {
-                        email: ifEmptyToNull(emailInputRef.current?.value),
-                        password: ifEmptyToNull(passwordInputRef.current?.value)
-                    });
-        
-                    localStorage.setItem(storageAuthTokenName, response.data);
-                    router.push('/customer-portal');
-                    break;
-                case 'employee': 
-                    // TODO:
-                    
-                    break;
-                case 'none':
-                    setErrorMessages([ AuthErrorMessage.NoRole ]);
-                    setErrorsVisible((prev) => !prev);
-                    break;
+            case 'customer': {
+                const response = await axios.post(`${basePath}/auth/login-customer`, {
+                    email: ifEmptyToNull(emailInputRef.current?.value),
+                    password: ifEmptyToNull(passwordInputRef.current?.value)
+                });
+    
+                localStorage.setItem(storageAuthTokenName, response.data);
+                router.push('/customer-portal');
+                break;
+            } case 'employee': {
+                const response = await axios.post(`${basePath}/auth/login-employee`, {
+                    email: ifEmptyToNull(emailInputRef.current?.value),
+                    password: ifEmptyToNull(passwordInputRef.current?.value)
+                });
+    
+                localStorage.setItem(storageAuthTokenName, response.data.token);
+                localStorage.setItem(storageRoleName, response.data.role);
+                router.push(`/${response.data.role}`);
+                break;
+            } case 'none': {
+                setErrorMessages([ AuthErrorMessage.NoRole ]);
+                setErrorsVisible((prev) => !prev);
+                break;
+            }
             }
         } catch (err) {
-            setErrorMessages(err instanceof AxiosError 
-                ? (err.response ? toStringArray(err.response.data) : [ err.message ]) 
+            setErrorMessages(err instanceof AxiosError ? 
+                (err.response ? toStringArray(err.response.data) : [ err.message ]) 
                 : undefined);
             setErrorsVisible((prev) => !prev);
         }
