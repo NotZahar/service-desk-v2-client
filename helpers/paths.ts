@@ -1,0 +1,1 @@
+export const baseServerPath: string = 'http://localhost:7000';

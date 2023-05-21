@@ -1,0 +1,58 @@
+@use '../colors';
+@use '../general';
+
+$tabsId: 'tabsId';
+$tabClass: 'tabClass';
+
+$tabs-width: 100%;
+$tabs-height: fit-content;
+
+$tab-borders-width: 1px;
+$tab-padding: 15px;
+$tab-width: 100%;
+$tab-height: fit-content;
+$tab-font-size: 18px;
+$tab-image-width: 70px;
+$tab-image-height: 70px;
+$tab-image-margin-bottom: 10px;
+$tab-image-div-border-radius: general.$button-border-radius;
+$tab-image-padding: 8px;
+
+##{$tabsId} {
+    display: flex;
+    flex-direction: column;
+    width: $tabs-width;
+    height: $tabs-height;
+
+    .#{$tabClass} {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: $tab-width;
+        height: $tab-width;
+        padding: $tab-padding;
+        border-bottom: solid $tab-borders-width colors.$main-border-color;
+        font-size: $tab-font-size;
+        transition: background-color general.$button-transition-time;
+
+        &:hover {
+            cursor: pointer;
+            background-color: colors.$main-color-light;
+
+            img {
+                filter: colors.$filter-image;
+            }
+        }
+
+        img {
+            width: $tab-image-width;
+            height: $tab-image-height;
+            transition: filter general.$button-transition-time;
+        }
+    }
+}
+
+:export {
+    tabsId: $tabsId;
+    tabClass: $tabClass;
+}

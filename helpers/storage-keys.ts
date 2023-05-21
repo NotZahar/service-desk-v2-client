@@ -1,0 +1,1 @@
+export const storageAuthToken: string = 'auth-token';

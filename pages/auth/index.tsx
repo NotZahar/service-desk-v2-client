@@ -1,10 +1,11 @@
 import Modal from "@/components/Modal";
 import { AuthErrorMessage } from "@/errors/auth-errors";
+import { baseServerPath } from "@/helpers/paths";
+import { storageAuthToken } from "@/helpers/storage-keys";
 import { ifEmptyToNull, toStringArray } from "@/helpers/transform";
 import { useActions } from "@/hooks/useActions";
 import { useTypedSelector } from "@/hooks/useTypedSelector";
 import AuthLayout from "@/layouts/AuthLayout";
-import { basePath, storageAuthTokenName, storageRoleName } from "@/server-config";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
@@ -12,8 +13,10 @@ import authCSSVariables from "../../styles/pages/auth.module.scss";
 
 const Index = () => {
     const router = useRouter();
-    const { setUserChoice } = useActions();
+    
+    const { setUserChoice, setEmployeeUser, setCustomerUser } = useActions();
     const { userChoice } = useTypedSelector(state => state.authReducer);
+
     const [errorMessages, setErrorMessages] = useState<string[]>();
     const [errorsVisible, setErrorsVisible] = useState<boolean>(false);
 
@@ -24,22 +27,23 @@ const Index = () => {
         try {
             switch (userChoice) {
             case 'customer': {
-                const response = await axios.post(`${basePath}/auth/login-customer`, {
+                const response = await axios.post(`${baseServerPath}/auth/login-customer`, {
                     email: ifEmptyToNull(emailInputRef.current?.value),
                     password: ifEmptyToNull(passwordInputRef.current?.value)
                 });
     
-                localStorage.setItem(storageAuthTokenName, response.data);
+                localStorage.setItem(storageAuthToken, response.data.token);
+                setCustomerUser({ id: response.data.userId, name: response.data.userName });
                 router.push('/customer-portal');
                 break;
             } case 'employee': {
-                const response = await axios.post(`${basePath}/auth/login-employee`, {
+                const response = await axios.post(`${baseServerPath}/auth/login-employee`, {
                     email: ifEmptyToNull(emailInputRef.current?.value),
                     password: ifEmptyToNull(passwordInputRef.current?.value)
                 });
     
-                localStorage.setItem(storageAuthTokenName, response.data.token);
-                localStorage.setItem(storageRoleName, response.data.role);
+                localStorage.setItem(storageAuthToken, response.data.token);
+                setEmployeeUser({ id: response.data.userId, name: response.data.userName });
                 router.push(`/${response.data.role}`);
                 break;
             } case 'none': {
@@ -67,8 +71,8 @@ const Index = () => {
                 <Modal 
                     title="Вход"
                     inputs={ [ 
-                        { label: 'email', ref: emailInputRef }, 
-                        { label: 'пароль', ref: passwordInputRef } 
+                        { label: 'email', type: 'text', ref: emailInputRef }, 
+                        { label: 'пароль', type: 'password', ref: passwordInputRef } 
                     ] } 
                     buttons={ [ 
                         { id: authCSSVariables.enterButtonId, text: 'Войти', onClick: enter }, 

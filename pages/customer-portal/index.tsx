@@ -1,13 +1,11 @@
-import MainLayout from "@/layouts/MainLayout";
-
 const Index = () => {
     return (
         <>
-            <MainLayout>
+            {/* <MainLayout> */}
                 <h1>
                     Customer portal!
                 </h1>
-            </MainLayout>
+            {/* </MainLayout> */}
         </>
     );
 };

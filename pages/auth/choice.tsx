@@ -26,15 +26,11 @@ const Choice = () => {
                     title="Вы...">
                     <div id={ choiceCSSVariables.choiceId }>
                         <div id={ choiceCSSVariables.employeeId } className={ choiceCSSVariables.choiceClass } onClick={ employeeSelected }>
-                            <Image
-                                src="/employeeIcon.png"
-                                alt="Employee" />
+                            <Image src="/employeeIcon.png" alt="Employee" />
                             <p>сотрудник</p>
                         </div>
                         <div id={ choiceCSSVariables.customerId } className={ choiceCSSVariables.choiceClass } onClick={ customerSelected }>
-                            <Image
-                                src="/customerIcon.png"
-                                alt="Customer" />
+                            <Image src="/customerIcon.png" alt="Customer" />
                             <p>клиент</p>
                         </div>
                     </div>

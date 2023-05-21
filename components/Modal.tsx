@@ -23,10 +23,10 @@ const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, errors, widthFitC
                     <h3>{ title }</h3>
                     {   inputs &&
                         <div id={ modalCSSVariables.inputsId }>
-                            {   inputs.map(({ id, className, label, ref }, index) => {
+                            {   inputs.map(({ id, className, label, type, ref }, index) => {
                                     return ( 
                                         <div key={ inputsKeys[index] }>
-                                            <input id={ id } className={ className } placeholder={ label } ref={ ref } type="text" />
+                                            <input id={ id } className={ className } placeholder={ label } ref={ ref } type={ type } />
                                         </div>
                                     );
                                 }) 

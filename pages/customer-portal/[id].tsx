@@ -1,13 +1,11 @@
-import MainLayout from "@/layouts/MainLayout";
-
 const CustomerPage = () => {
     return (
         <>
-            <MainLayout>
+            {/* <MainLayout> */}
                 <h1>
                     Customer page!
                 </h1>
-            </MainLayout>
+            {/* </MainLayout> */}
         </>
     );
 };

@@ -1,0 +1,45 @@
+@use '../colors';
+@use '../general';
+
+$mainLayoutId: 'mainLayoutId';
+$navbarId: 'navbarId';
+$pageContentId: 'pageContentId';
+
+$main-layout-width: 100vw;
+$main-layout-height: 100vh;
+
+$navbar-width: fit-content;
+$navbar-height: 100%;
+
+$page-content-width: 100%;
+$page-content-height: 100%;
+$page-content-padding: 15px;
+
+##{$mainLayoutId} {
+    display: flex;
+    flex-direction: row;
+    width: $main-layout-width;
+    height: $main-layout-height;
+
+    ##{$navbarId} {
+        display: flex;
+        flex-direction: column;
+        width: $navbar-width;
+        height: $navbar-height;
+    }
+    
+    ##{$pageContentId} {
+        display: flex;
+        flex-direction: row;
+        width: $page-content-width;
+        height: $page-content-height;
+        background-color: colors.$secondary-color-dark;
+        padding: $page-content-padding;
+    }
+}
+
+:export {
+    mainLayoutId: $mainLayoutId;
+    navbarId: $navbarId;
+    pageContentId: $pageContentId;
+}

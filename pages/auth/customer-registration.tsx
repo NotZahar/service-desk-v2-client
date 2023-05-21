@@ -1,8 +1,8 @@
 import Modal from "@/components/Modal";
+import { baseServerPath } from "@/helpers/paths";
 import { ifEmptyToNull, toStringArray } from "@/helpers/transform";
 import { useActions } from "@/hooks/useActions";
 import AuthLayout from "@/layouts/AuthLayout";
-import { basePath } from "@/server-config";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
@@ -10,7 +10,9 @@ import customerRegistrationCSSVariables from "../../styles/pages/customer-regist
 
 const CustomerRegistration = () => {
     const router = useRouter();
+    
     const { setUserChoice } = useActions();
+    
     const [errorsVisible, setErrorsVisible] = useState<boolean>(false);
     const [successVisible, setSuccessVisible] = useState<boolean>(false);
     const [errorMessages, setErrorMessages] = useState<string[]>();
@@ -25,7 +27,7 @@ const CustomerRegistration = () => {
 
     const registerCustomer = async () => {
         try {
-            await axios.post(`${basePath}/auth/registration-customer`, {
+            await axios.post(`${baseServerPath}/auth/registration-customer`, {
                 email: ifEmptyToNull(emailInputRef.current?.value),
                 password: ifEmptyToNull(passwordInputRef.current?.value),
                 first_name: ifEmptyToNull(firstNameInputRef.current?.value),
@@ -55,13 +57,13 @@ const CustomerRegistration = () => {
                 <Modal 
                     title="Регистрация"
                     inputs={[ 
-                        { label: 'email (обязательное поле)', ref: emailInputRef },
-                        { label: 'пароль (обязательное поле)', ref: passwordInputRef },
-                        { label: 'имя (обязательное поле)', ref: firstNameInputRef },
-                        { label: 'фамилия (обязательное поле)', ref: secondNameInputRef },
-                        { label: 'отчество', ref: patronymicInputRef },
-                        { label: 'номер телефона', ref: phoneNumberInputRef },
-                        { label: 'организация', ref: organizationInputRef }
+                        { label: 'email (обязательное поле)', type: 'text', ref: emailInputRef },
+                        { label: 'пароль (обязательное поле)', type: 'password', ref: passwordInputRef },
+                        { label: 'имя (обязательное поле)', type: 'text', ref: firstNameInputRef },
+                        { label: 'фамилия (обязательное поле)', type: 'text', ref: secondNameInputRef },
+                        { label: 'отчество', type: 'text', ref: patronymicInputRef },
+                        { label: 'номер телефона', type: 'text', ref: phoneNumberInputRef },
+                        { label: 'организация', type: 'text', ref: organizationInputRef }
                     ]}
                     buttons={[
                         { id: customerRegistrationCSSVariables.registerButtonId, text: 'Зарегистрироваться', onClick: registerCustomer },

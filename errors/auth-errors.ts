@@ -1,3 +1,3 @@
 export enum AuthErrorMessage {
-    NoRole = 'Роль не выбрана!'
+    NoRole = 'Роль не выбрана'
 }
