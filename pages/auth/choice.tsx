@@ -1,21 +1,24 @@
 import Modal from "@/components/Modal";
-import { useActions } from "@/hooks/useActions";
+import { useTypedDispatch } from "@/hooks/redux";
 import AuthLayout from "@/layouts/AuthLayout";
+import { authSlice } from "@/store/reducers/AuthSlice";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import choiceCSSVariables from "../../styles/pages/choice.module.scss";
 
 const Choice = () => {
     const router = useRouter();
-    const { setUserChoice } = useActions();
+
+    const { setUserChoice } = authSlice.actions;
+    const dispatch = useTypedDispatch();
 
     const employeeSelected = () => {
-        setUserChoice('employee');
+        dispatch(setUserChoice('employee'));
         router.push('/auth');
     };
 
     const customerSelected = () => {
-        setUserChoice('customer');
+        dispatch(setUserChoice('customer'));
         router.push('/auth/customer-choice');
     };
 

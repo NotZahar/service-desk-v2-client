@@ -1,8 +1,9 @@
 import Modal from "@/components/Modal";
 import { baseServerPath } from "@/helpers/paths";
 import { ifEmptyToNull, toStringArray } from "@/helpers/transform";
-import { useActions } from "@/hooks/useActions";
+import { useTypedDispatch } from "@/hooks/redux";
 import AuthLayout from "@/layouts/AuthLayout";
+import { authSlice } from "@/store/reducers/AuthSlice";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
@@ -11,7 +12,8 @@ import customerRegistrationCSSVariables from "../../styles/pages/customer-regist
 const CustomerRegistration = () => {
     const router = useRouter();
     
-    const { setUserChoice } = useActions();
+    const { authReset } = authSlice.actions;
+    const dispatch = useTypedDispatch();
     
     const [errorsVisible, setErrorsVisible] = useState<boolean>(false);
     const [successVisible, setSuccessVisible] = useState<boolean>(false);
@@ -47,7 +49,7 @@ const CustomerRegistration = () => {
     };
 
     const cancelRegistration = () => {
-        setUserChoice('none');
+        dispatch(authReset());
         router.push('/auth/choice');
     };
 

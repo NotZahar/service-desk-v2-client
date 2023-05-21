@@ -1,6 +1,6 @@
-import { storageAuthToken } from "@/helpers/storage-keys";
-import { useActions } from "@/hooks/useActions";
-import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
+import { authSlice } from "@/store/reducers/AuthSlice";
+import { userSlice } from "@/store/reducers/UserSlice";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { MouseEventHandler } from "react";
@@ -13,13 +13,14 @@ interface UserInfoProps {
 const UserInfo: React.FC<UserInfoProps> = ({ logoutFunction }) => {
     const router = useRouter();
 
-    const { resetEmployeeUser } = useActions();
-
-    const { user } = useTypedSelector(state => state.employeeUserReducer);
+    const { authReset } = authSlice.actions;
+    const { resetUser } = userSlice.actions;
+    const { user } = useTypedSelector(state => state.userReducer);
+    const dispatch = useTypedDispatch();
 
     const defaultLogoutFunction = () => {
-        localStorage.removeItem(storageAuthToken);
-        resetEmployeeUser();
+        dispatch(authReset());
+        dispatch(resetUser());
         router.push('/auth/choice');
     };
     
@@ -28,7 +29,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ logoutFunction }) => {
             <div id={ userInfoCSSVariables.userInfoId }>
                 <div id={ userInfoCSSVariables.infoId }>
                     <Image src={ '/user.png' } alt={ 'User' }/>
-                    <p title={ user.name }>{ user.name }</p>
+                    <p title={ user?.name }>{ user?.name }</p>
                 </div>
                 <div id={ userInfoCSSVariables.logoutId } onClick={ logoutFunction || defaultLogoutFunction }>
                     <p>Выйти</p>

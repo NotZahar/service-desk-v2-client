@@ -1,11 +1,11 @@
 import Modal from "@/components/Modal";
 import { AuthErrorMessage } from "@/errors/auth-errors";
 import { baseServerPath } from "@/helpers/paths";
-import { storageAuthToken } from "@/helpers/storage-keys";
 import { ifEmptyToNull, toStringArray } from "@/helpers/transform";
-import { useActions } from "@/hooks/useActions";
-import { useTypedSelector } from "@/hooks/useTypedSelector";
+import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
 import AuthLayout from "@/layouts/AuthLayout";
+import { authSlice } from "@/store/reducers/AuthSlice";
+import { userSlice } from "@/store/reducers/UserSlice";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/router";
 import { useRef, useState } from "react";
@@ -14,8 +14,10 @@ import authCSSVariables from "../../styles/pages/auth.module.scss";
 const Index = () => {
     const router = useRouter();
     
-    const { setUserChoice, setEmployeeUser, setCustomerUser } = useActions();
+    const { setToken, authReset } = authSlice.actions;
+    const { setUser } = userSlice.actions;
     const { userChoice } = useTypedSelector(state => state.authReducer);
+    const dispatch = useTypedDispatch();
 
     const [errorMessages, setErrorMessages] = useState<string[]>();
     const [errorsVisible, setErrorsVisible] = useState<boolean>(false);
@@ -32,8 +34,13 @@ const Index = () => {
                     password: ifEmptyToNull(passwordInputRef.current?.value)
                 });
     
-                localStorage.setItem(storageAuthToken, response.data.token);
-                setCustomerUser({ id: response.data.userId, name: response.data.userName });
+                dispatch(setToken(response.data.token));
+                dispatch(setUser({ 
+                    id: response.data.id, 
+                    name: response.data.name,
+                    role: response.data.role,
+                    email: response.data.email
+                }));
                 router.push('/customer-portal');
                 break;
             } case 'employee': {
@@ -42,8 +49,13 @@ const Index = () => {
                     password: ifEmptyToNull(passwordInputRef.current?.value)
                 });
     
-                localStorage.setItem(storageAuthToken, response.data.token);
-                setEmployeeUser({ id: response.data.userId, name: response.data.userName });
+                dispatch(setToken(response.data.token));
+                dispatch(setUser({ 
+                    id: response.data.id, 
+                    name: response.data.name,
+                    role: response.data.role,
+                    email: response.data.email
+                }));
                 router.push(`/${response.data.role}`);
                 break;
             } case 'none': {
@@ -61,7 +73,7 @@ const Index = () => {
     };
 
     const back = () => {
-        setUserChoice('none');
+        dispatch(authReset());
         router.push('/auth/choice');
     };
 
