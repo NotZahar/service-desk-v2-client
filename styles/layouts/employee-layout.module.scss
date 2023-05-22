@@ -13,7 +13,6 @@ $navbar-height: 100%;
 
 $page-content-width: 100%;
 $page-content-height: 100%;
-$page-content-padding: 15px;
 
 ##{$mainLayoutId} {
     display: flex;
@@ -34,7 +33,6 @@ $page-content-padding: 15px;
         width: $page-content-width;
         height: $page-content-height;
         background-color: colors.$secondary-color-dark;
-        padding: $page-content-padding;
     }
 }
 

@@ -4,6 +4,8 @@
 $userInfoId: 'userInfoId';
 $infoId: 'infoId';
 $logoutId: 'logoutId';
+$logoutWarningBtns: 'logoutWarningBtns';
+$logoutWarningCancel: 'logoutWarningCancel';
 
 $user-info-width: 100%;
 $user-info-height: fit-content;
@@ -70,8 +72,23 @@ $logout-font-size: 20px;
     }
 }
 
+.#{$logoutWarningBtns} {
+    flex-grow: 1;
+}
+
+.#{$logoutWarningCancel} {
+    background-color: colors.$main-color-light !important;
+
+    &:hover {
+        background-color: colors.$main-color-dark !important;
+        color: colors.$main-color-light !important;
+    }
+}
+
 :export {
     userInfoId: $userInfoId;
     infoId: $infoId;
     logoutId: $logoutId;
+    logoutWarningBtns: $logoutWarningBtns;
+    logoutWarningCancel: $logoutWarningCancel;
 }

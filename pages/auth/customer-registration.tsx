@@ -85,7 +85,7 @@ const CustomerRegistration = () => {
                 {   successVisible && 
                     <Modal 
                         title="Регистрация прошла успешно!"
-                        buttons={[ {   text: 'Закрыть', onClick: () => { router.push('/auth'); } } ]}
+                        buttons={[ { id: customerRegistrationCSSVariables.toAuthBtnId, text: 'К входу', onClick: () => { router.push('/auth'); } } ]}
                         widthFitContent={ true } />
                 }  
             </AuthLayout>

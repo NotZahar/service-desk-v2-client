@@ -1,7 +1,8 @@
 @use '../colors';
 
-$registerButtonId: 'registerButtonId'; 
+$registerButtonId: 'registerButtonId';
 $cancelButtonId: 'cancelButtonId';
+$toAuthBtnId: 'toAuthBtnId';
 
 ##{$cancelButtonId} {
     background-color: colors.$main-color-light !important;
@@ -13,7 +14,12 @@ $cancelButtonId: 'cancelButtonId';
     }
 }
 
+##{$toAuthBtnId} {
+    flex-grow: 1;
+}
+
 :export {
     registerButtonId: $registerButtonId; 
-    cancelButtonId: $cancelButtonId; 
+    cancelButtonId: $cancelButtonId;
+    toAuthBtnId: $toAuthBtnId;
 }
