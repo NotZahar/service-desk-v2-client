@@ -21,7 +21,11 @@ const Navbar: React.FC<NavbarProps> = ({ tabs }) => {
                 {   tabs.map(({ id, tab, path, onClick, ref }) => {
                         return (
                             <div id={ id } className={ navbarCSSVariables.tabClass } title={ tab } onClick={ onClick } ref={ ref } key={ `${path}/${allTabs.get(tab)}` }>
-                                <Image src={ `/${allTabs.get(tab)}.png` } alt={ tab } />
+                                <Image 
+                                    src={ `/${allTabs.get(tab)}.png` } 
+                                    alt={ tab }
+                                    width={ +navbarCSSVariables.tabImageWidth }
+                                    height={ +navbarCSSVariables.tabImageHeight } />
                             </div>
                         );
                     }) 

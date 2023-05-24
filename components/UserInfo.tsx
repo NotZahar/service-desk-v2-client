@@ -39,7 +39,11 @@ const UserInfo: React.FC<UserInfoProps> = ({ logoutFunction }) => {
         <>
             <div id={ userInfoCSSVariables.userInfoId }>
                 <div id={ userInfoCSSVariables.infoId } title={ `${user?.name} ${user?.email}` }>
-                    <Image src={ '/user.png' } alt={ 'User' }/>
+                    <Image 
+                        src={ '/user.png' } 
+                        alt={ 'User' }
+                        width={ +userInfoCSSVariables.userLogoImgWidth }
+                        height={ +userInfoCSSVariables.userLogoImgHeight } />
                     <p>{ user?.name }</p>
                 </div>
                 <div id={ userInfoCSSVariables.logoutId } onClick={ logoutFunction || defaultLogoutFunction }>

@@ -1,0 +1,65 @@
+@use '../colors';
+@use '../general';
+@use '../components/Appeal.module' as appeal;
+
+$appealsId: 'appealsId';
+$columnNamesId: 'columnNamesId';
+$themeColumn: 'themeColumn';
+$dateColumn: 'dateColumn';
+$statusColumn: 'statusColumn';
+
+$column-names-width: 100%;
+$column-names-height: fit-content;
+$column-names-padding: 10px 20px;
+$column-names-font-size: 18px;
+
+$appeals-width: 100%;
+$appeals-height: 87%;
+
+##{$columnNamesId} {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: $column-names-width;
+    height: $column-names-height;
+    background-color: colors.$main-border-color;
+    color: colors.$main-color-light;
+    padding: $column-names-padding;
+    font-size: $column-names-font-size;
+
+    p {
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .#{$themeColumn} {
+        width: appeal.$appeal-theme-width;
+    }
+
+    .#{$dateColumn} {
+        margin-left: appeal.$appeal-date-margin-left;
+    }
+
+    .#{$statusColumn} {
+        width: appeal.$appeal-status-width;
+        margin-left: appeal.$appeal-status-margin-left;
+    }
+}
+
+##{$appealsId} {
+    display: flex;
+    flex-direction: column;
+    width: $appeals-width;
+    height: $appeals-height;
+    overflow-y: scroll;
+}
+
+:export {
+    appealsId: $appealsId;
+    columnNamesId: $columnNamesId;
+    themeColumn: $themeColumn;
+    dateColumn: $dateColumn;
+    statusColumn: $statusColumn;
+}

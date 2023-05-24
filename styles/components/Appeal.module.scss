@@ -1,0 +1,113 @@
+@use '../colors';
+@use '../general';
+
+$appealClass: 'appealClass';
+$appealTheme: 'appealTheme';
+$appealDate: 'appealDate';
+$appealStatus: 'appealStatus';
+
+$appealOpen: 'appealOpen';
+$appealClosed: 'appealClosed';
+$appealRejected: 'appealRejected';
+$appealAtWork: 'appealAtWork';
+
+$appeal-default-background-color: colors.$main-color-light;
+$appeal-default-color: colors.$main-color-dark;
+$appeal-default-hover-background-color: colors.$main-color-dark;
+$appeal-default-hover-color: colors.$main-color-light;
+
+$appeal-open-background-color: $appeal-default-background-color;
+$appeal-open-color: $appeal-default-color;
+
+$appeal-closed-background-color: colors.$tertiary-accept-color;
+$appeal-closed-color: colors.$main-color-light;
+
+$appeal-rejected-background-color: colors.$main-border-color;
+$appeal-rejected-color: colors.$main-color-light;
+
+$appeal-at-work-background-color: colors.$secondary-accept-color;
+$appeal-at-work-color: colors.$main-color-light;
+
+$appeal-height: 45px;
+$appeal-padding: 10px 20px;
+$appeal-margin: 12px;
+$appeal-font-size: 16px;
+
+$appeal-theme-width: 320px; 
+$appeal-status-width: 80px;
+$appeal-date-margin-left: 30px;
+$appeal-status-margin-left: 10px;
+
+.#{$appealClass} {
+    display: flex;
+    flex-direction: row;
+    height: $appeal-height;
+    background-color: $appeal-default-background-color;
+    color: $appeal-default-color;
+    border-style: none;
+    padding: $appeal-padding;
+    margin-bottom: $appeal-margin;
+    font-size: $appeal-font-size;
+    transition: background-color general.$button-transition-time, color general.$button-transition-time;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $appeal-default-hover-background-color;
+        color: $appeal-default-hover-color;
+    }
+
+    &:first-child {
+        margin-top: $appeal-margin;
+    }
+
+    p {
+        flex-grow: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .#{$appealTheme} {
+        width: $appeal-theme-width;
+    }
+
+    .#{$appealDate} {
+        margin-left: $appeal-date-margin-left;
+    }
+
+    .#{$appealStatus} {
+        width: $appeal-status-width;
+        margin-left: $appeal-status-margin-left;
+    }
+}
+
+.#{appealOpen} {
+    background-color: $appeal-open-background-color;
+    color: $appeal-open-color;
+}
+
+.#{$appealClosed} {
+    background-color: $appeal-closed-background-color;
+    color: $appeal-closed-color;
+}
+
+.#{appealRejected} {
+    background-color: $appeal-rejected-background-color;
+    color: $appeal-rejected-color;
+}
+
+.#{appealAtWork} {
+    background-color: $appeal-at-work-background-color;
+    color: $appeal-at-work-color;
+}
+
+:export {
+    appealClass: $appealClass;
+    appealTheme: $appealTheme;
+    appealDate: $appealDate;
+    appealStatus: $appealStatus;
+    appealOpen: $appealOpen;
+    appealClosed: $appealClosed;
+    appealRejected: $appealRejected;
+    appealAtWork: $appealAtWork;
+}

@@ -4,6 +4,9 @@
 $tabsId: 'tabsId';
 $tabClass: 'tabClass';
 
+$tab-image-width: 70;
+$tab-image-height: 70;
+
 $tabs-width: 100%;
 $tabs-height: fit-content;
 
@@ -12,8 +15,6 @@ $tab-padding: 15px;
 $tab-width: 100%;
 $tab-height: fit-content;
 $tab-font-size: 18px;
-$tab-image-width: 70px;
-$tab-image-height: 70px;
 $tab-image-margin-bottom: 10px;
 $tab-image-div-border-radius: general.$button-border-radius;
 $tab-image-padding: 8px;
@@ -45,8 +46,6 @@ $tab-image-padding: 8px;
         }
 
         img {
-            width: $tab-image-width;
-            height: $tab-image-height;
             transition: filter general.$button-transition-time;
         }
     }
@@ -55,4 +54,6 @@ $tab-image-padding: 8px;
 :export {
     tabsId: $tabsId;
     tabClass: $tabClass;
+    tabImageWidth: $tab-image-width;
+    tabImageHeight: $tab-image-height;
 }

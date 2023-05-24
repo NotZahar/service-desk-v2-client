@@ -22,3 +22,15 @@ export interface IError {
     text: string;
     ref?: RefObject<HTMLParagraphElement>;
 }
+
+export interface IOption {
+    title: string;
+    value: string;
+    selected?: boolean;
+}
+
+export interface ISelect {
+    id?: string;
+    className?: string;
+    options: IOption[];
+}

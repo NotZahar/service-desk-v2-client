@@ -19,6 +19,7 @@ $page-content-height: 100%;
     flex-direction: row;
     width: $main-layout-width;
     height: $main-layout-height;
+    overflow: hidden;
 
     ##{$navbarId} {
         display: flex;

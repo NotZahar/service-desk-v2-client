@@ -13,14 +13,14 @@ $main-content-height: 100%;
 
 $top-panel-padding: 15px;
 $top-panel-width: 100%;
-$top-panel-height: fit-content;
+$top-panel-height: 10%;
 
 $new-request-btn-padding: 10px;
 $new-request-btn-font-size: 25px; 
 $new-request-margin-right: 10px; 
 
 $appeals-and-requests-width: 100%;
-$appeals-and-requests-height: 100%;
+$appeals-and-requests-height: 90%;
 
 $appeals-width: 40%;
 $appeals-height: 100%;
@@ -40,8 +40,11 @@ $requests-height: 100%;
         height: $top-panel-height;
         background-color: colors.$main-border-color;
         padding: $top-panel-padding;
+        overflow: hidden;
 
         ##{$newRequestBtnId} {
+            width: fit-content;
+            height: fit-content;
             background-color: colors.$secondary-accept-color;
             color: colors.$secondary-color-light;
             border-radius: general.$button-border-radius;

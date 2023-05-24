@@ -1,0 +1,96 @@
+@use '../colors';
+@use '../general';
+
+$filterPanelId: 'filterPanelId';
+$searchInputId: 'searchInputId';
+$selectId: 'selectId';
+$filterIconId: 'filterIconId';
+
+$filterIconWidth: 28;
+$filterIconHeight: 28;
+
+$filter-padding: 15px;
+$search-input-width: 200px;
+$input-font-size: 16px;
+
+$select-div-width: 200px;
+$select-margin-left: 15px;
+$select-width: 100%;
+$select-font-size: 16px;
+
+$filter-icon-div-margin-left: 15px;
+$filter-icon-div-padding: 2px;
+$filter-icon-border-radius-hover: 4px;
+
+##{$filterPanelId} {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    padding: $filter-padding;
+    
+    input {
+        width: general.$input-width;
+        background-color: colors.$secondary-color-light;
+        color: colors.$main-color-dark;
+        border-style: none;
+        border-radius: general.$input-border-radius;
+        padding: general.$input-padding;
+        font-size: $input-font-size;
+
+        &::placeholder {
+            color: colors.$secondary-color-dark;
+            opacity: general.$input-placeholder-opacity;
+        }
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    select {
+        width: $select-width;
+        background-color: colors.$secondary-color-light;
+        color: colors.$main-color-dark;
+        border-radius: general.$input-border-radius;
+        border-style: none;
+        padding: general.$input-padding;
+        font-size: $select-font-size;
+    }
+
+    ##{$searchInputId} {
+        width: $search-input-width;
+    }
+
+    ##{$selectId} {
+       width: $select-div-width;
+       margin-left: $select-margin-left;
+    }
+
+    ##{$filterIconId} {
+        margin-left: $filter-icon-div-margin-left;
+        padding: $filter-icon-div-padding;
+        
+        img {
+            transition: filter general.$button-transition-time;
+        }
+
+        &:hover {
+            cursor: pointer;
+            border-radius: $filter-icon-border-radius-hover;
+            background-color: colors.$main-color-light;
+
+            img {
+                filter: colors.$filter-image;
+            }
+        }
+    }
+}
+
+:export {
+    filterPanelId: $filterPanelId;
+    searchInputId: $searchInputId;
+    selectId: $selectId;
+    filterIconId: $filterIconId;
+    filterIconWidth: $filterIconWidth;
+    filterIconHeight: $filterIconHeight;
+}

@@ -1,3 +1,4 @@
+import WorkWithAppeals from "@/components/WorkWithAppeals";
 import DispatcherLayout from "@/layouts/DispatcherLayout";
 import requestsCSSVariables from "../../styles/pages/dispatcher-requests.module.scss";
 
@@ -11,7 +12,7 @@ const Requests = () => {
                     </div>
                     <div id={ requestsCSSVariables.appealsAndRequestsId }>
                         <div id={ requestsCSSVariables.appealsId }>
-                            {/* <AppealsList /> */}
+                            <WorkWithAppeals />
                         </div>
                         <div id={ requestsCSSVariables.requestsId }>
                             {/* <RequestsList /> */}
