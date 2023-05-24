@@ -1,50 +1,47 @@
-import { AppealStatus, appealStatusType } from "@/helpers/appeal-statuses";
-import { IAppealStatus } from "@/types/models/appeal-status";
+import { AppealStatus } from "@/helpers/appeal-statuses";
+import { useTypedDispatch } from "@/hooks/redux";
+import { currentAppealSlice } from "@/store/reducers/CurrentAppealSlice";
+import { IAppeal } from "@/types/models/appeal";
 import appealCSSVariables from "../styles/components/Appeal.module.scss";
 
+const statusTypeToCSS = (statusName: string): string => {
+    switch (statusName) {
+        case AppealStatus.AT_WORK:
+            return appealCSSVariables.appealAtWork;
+        case AppealStatus.OPEN:
+            return appealCSSVariables.appealOpen;
+        case AppealStatus.CLOSED:
+            return appealCSSVariables.appealClosed;
+        case AppealStatus.REJECTED:
+            return appealCSSVariables.appealRejected;
+        default: 
+            return '';
+    }
+};
+
 interface AppealProps {
-    id: string;
-    theme: string;
-    text: string;
-    file: string | null;
-    customer_id: string;
-    date: Date;
-    status: IAppealStatus;
+    appeal: IAppeal;
+    parentHandler: Function;
 }
 
-const Appeal: React.FC<AppealProps> = ({ id, theme, date, status }) => {
-    const statusTypeToCSS = (type: appealStatusType): string => {
-        switch (type) {
-            case 'AT_WORK':
-                return appealCSSVariables.appealAtWork;
-            case 'OPEN':
-                return appealCSSVariables.appealOpen;
-            case 'CLOSED':
-                return appealCSSVariables.appealClosed;
-            case 'REJECTED':
-                return appealCSSVariables.appealRejected;
-        }
-    };
+const Appeal: React.FC<AppealProps> = ({ appeal, parentHandler }) => {
+    const { setAppeal } = currentAppealSlice.actions;
+    const dispatch = useTypedDispatch();
 
-    const dateString = new Date(date).toLocaleString('ru-RU');
-    const statusName = AppealStatus[status.name as appealStatusType];
+    const dateString = new Date(appeal.date).toLocaleString('ru-RU');
+
+    const onClickHandler = () => {
+        dispatch(setAppeal(appeal));
+        parentHandler();
+    };
 
     return (
         <>  
-            <div id={ id } className={ `${appealCSSVariables.appealClass} ${statusTypeToCSS(status.name as appealStatusType)}` }>
-                <p className={ appealCSSVariables.appealTheme } title={ theme } >{ theme }</p>
+            <div id={ appeal.id } className={ `${appealCSSVariables.appealClass} ${statusTypeToCSS(appeal.status_name)}` } onClick={ onClickHandler }>
+                <p className={ appealCSSVariables.appealTheme } title={ appeal.theme } >{ appeal.theme }</p>
                 <p className={ appealCSSVariables.appealDate } title={ dateString } >{ dateString }</p>
-                <p className={ appealCSSVariables.appealStatus } title={ statusName } >{ statusName }</p>
+                <p className={ appealCSSVariables.appealStatus } title={ appeal.status_name } >{ appeal.status_name }</p>
             </div>  
-
-            {/* {   errorsVisible && 
-                <Modal 
-                    title="Ошибка!"
-                    errors={ errorMessages && errorMessages.map((msg) => { return { text: msg }; }) }
-                    buttons={[
-                        { text: 'Закрыть', onClick: () => setErrorsVisible((prev) => !prev) }
-                    ]} />
-            } */}
         </>
     );
 };

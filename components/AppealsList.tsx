@@ -1,37 +1,40 @@
-import { appealStatusType } from "@/helpers/appeal-statuses";
+import { AppealStatus } from "@/helpers/appeal-statuses";
 import { useTypedSelector } from "@/hooks/redux";
 import { IAppeal } from "@/types/models/appeal";
 import appealsListCSSVariables from "../styles/components/AppealsList.module.scss";
 import Appeal from "./Appeal";
 
 interface AppealsListProps {
-
+    parentAppealHandler: Function;
 }
 
-const AppealsList: React.FC<AppealsListProps> = () => {
+const AppealsList: React.FC<AppealsListProps> = ({ parentAppealHandler }) => {
     const { appeals } = useTypedSelector(state => state.appealsReducer);
 
     let openAppeals: IAppeal[] = [];
     let closedAppeals: IAppeal[] = [];
     let atWorkAppeals: IAppeal[] = [];
     let rejectedAppeals: IAppeal[] = [];
-    appeals.forEach((appeal) => {
-        switch (appeal.status.name as appealStatusType) {
-            case 'AT_WORK': {
-                atWorkAppeals.push(appeal);
-                break;
-            } case 'CLOSED': {
-                closedAppeals.push(appeal);
-                break;
-            } case 'OPEN': {
-                openAppeals.push(appeal);
-                break;
-            } case 'REJECTED': {
-                rejectedAppeals.push(appeal);
-                break;
+
+    if (Array.isArray(appeals)) {
+        appeals.forEach((appeal) => {
+            switch (appeal.status_name) {
+                case AppealStatus.AT_WORK: {
+                    atWorkAppeals.push(appeal);
+                    break;
+                } case AppealStatus.CLOSED: {
+                    closedAppeals.push(appeal);
+                    break;
+                } case AppealStatus.OPEN: {
+                    openAppeals.push(appeal);
+                    break;
+                } case AppealStatus.REJECTED: {
+                    rejectedAppeals.push(appeal);
+                    break;
+                }
             }
-        }
-    });
+        });
+    }
 
     return (
         <>  
@@ -42,23 +45,23 @@ const AppealsList: React.FC<AppealsListProps> = () => {
             </div>
 
             <div id={ appealsListCSSVariables.appealsId }>
-                {   openAppeals.map(({ id, theme, text, file, customer_id, date, status }) => {
-                        return <Appeal id={ id } key={ id } theme={ theme } text={ text } file={ file } customer_id={ customer_id } date={ date } status={ status } />;
+                {   openAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name }) => {
+                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name } } parentHandler={ parentAppealHandler } key={ id } />;
                     }) 
                 }
 
-                {   atWorkAppeals.map(({ id, theme, text, file, customer_id, date, status }) => {
-                        return <Appeal id={ id } key={ id } theme={ theme } text={ text } file={ file } customer_id={ customer_id } date={ date } status={ status } />;
+                {   atWorkAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name }) => {
+                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name } } parentHandler={ parentAppealHandler } key={ id } />;
                     }) 
                 }
 
-                {   closedAppeals.map(({ id, theme, text, file, customer_id, date, status }) => {
-                        return <Appeal id={ id } key={ id } theme={ theme } text={ text } file={ file } customer_id={ customer_id } date={ date } status={ status } />;
+                {   closedAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name }) => {
+                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name } } parentHandler={ parentAppealHandler } key={ id } />;
                     }) 
                 }
 
-                {   rejectedAppeals.map(({ id, theme, text, file, customer_id, date, status }) => {
-                        return <Appeal id={ id } key={ id } theme={ theme } text={ text } file={ file } customer_id={ customer_id } date={ date } status={ status } />;
+                {   rejectedAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name }) => {
+                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name } } parentHandler={ parentAppealHandler } key={ id } />;
                     }) 
                 }
             </div>

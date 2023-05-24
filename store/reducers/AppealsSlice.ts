@@ -1,18 +1,18 @@
 import { IAppeal } from "@/types/models/appeal";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface AppealState {
+interface AppealsState {
     appeals: IAppeal[];
     error: string;
 }
 
-const initialState: AppealState = {
+const initialState: AppealsState = {
     appeals: [],
     error: ''
 };
 
 export const appealsSlice = createSlice({
-    name: 'appeal',
+    name: 'appeals',
     initialState,
     reducers: {
         setAppealsSuccess(state, action: PayloadAction<IAppeal[]>) {

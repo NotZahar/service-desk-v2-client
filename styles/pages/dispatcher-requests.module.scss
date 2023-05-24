@@ -7,6 +7,8 @@ $newRequestBtnId: 'newRequestBtnId';
 $appealsAndRequestsId: 'appealsAndRequestsId'; 
 $appealsId: 'appealsId'; 
 $requestsId: 'requestsId';
+$cancelBtnId: 'cancelBtnId';
+$denyBtnId: 'denyBtnId';
 
 $main-content-width: 100%;
 $main-content-height: 100%;
@@ -78,6 +80,15 @@ $requests-height: 100%;
             height: $requests-height;
         }
     }
+
+    ##{$cancelBtnId} {
+        background-color: colors.$main-error-color !important;
+        color: colors.$main-color-light !important;
+
+        &:hover {
+            background-color: colors.$main-color-dark !important;
+        }
+    }
 }
 
 :export {
@@ -87,4 +98,6 @@ $requests-height: 100%;
     appealsAndRequestsId: $appealsAndRequestsId;
     appealsId: $appealsId; 
     requestsId: $requestsId;
+    cancelBtnId: $cancelBtnId;
+    denyBtnId: $denyBtnId;
 }

@@ -4,5 +4,3 @@ export enum AppealStatus {
     OPEN = 'Открыто',
     CLOSED = 'Закрыто'
 }
-
-export type appealStatusType = keyof typeof AppealStatus;

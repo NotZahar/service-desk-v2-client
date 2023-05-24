@@ -1,5 +1,3 @@
-import { IAppealStatus } from "./appeal-status";
-
 export interface IAppeal {
     id: string;
     theme: string;
@@ -7,5 +5,6 @@ export interface IAppeal {
     file: string | null;
     customer_id: string;
     date: Date;
-    status: IAppealStatus;
+    status_id: string;
+    status_name: string;
 }

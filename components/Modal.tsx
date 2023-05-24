@@ -43,6 +43,8 @@ const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, errors, widthFitC
                         </div>
                     }
 
+                    { children }
+
                     {   buttons &&
                         <div id={ modalCSSVariables.buttonsId }>
                             {   buttons.map(({ id, className, text, onClick, ref }, index) => {
@@ -51,8 +53,6 @@ const Modal: React.FC<ModalProps> = ({ title, inputs, buttons, errors, widthFitC
                             }
                         </div>
                     }
-
-                    { children }
                 </div>
             </div>
         </>
