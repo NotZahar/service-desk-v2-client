@@ -11,6 +11,8 @@ $appealClosed: 'appealClosed';
 $appealRejected: 'appealRejected';
 $appealAtWork: 'appealAtWork';
 
+$appealSelected: 'appealSelected';
+
 $appeal-default-background-color: colors.$main-color-light;
 $appeal-default-color: colors.$main-color-dark;
 $appeal-default-hover-background-color: colors.$main-color-dark;
@@ -27,6 +29,9 @@ $appeal-rejected-color: colors.$main-color-light;
 
 $appeal-at-work-background-color: colors.$secondary-accept-color;
 $appeal-at-work-color: colors.$main-color-light;
+
+$appeal-selected-background-color: red;
+$appeal-selected-color: colors.$main-color-light;
 
 $appeal-height: 45px;
 $appeal-padding: 10px 20px;
@@ -101,6 +106,11 @@ $appeal-status-margin-left: 10px;
     color: $appeal-at-work-color;
 }
 
+.#{$appealSelected} {
+    background-color: $appeal-selected-background-color;
+    color: $appeal-selected-color;
+}
+
 :export {
     appealClass: $appealClass;
     appealTheme: $appealTheme;
@@ -110,4 +120,5 @@ $appeal-status-margin-left: 10px;
     appealClosed: $appealClosed;
     appealRejected: $appealRejected;
     appealAtWork: $appealAtWork;
+    appealSelected: $appealSelected;
 }

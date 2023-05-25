@@ -1,7 +1,7 @@
 import useUUID from "@/hooks/useUUID";
 import { ISelect } from "@/types/base";
 import Image from "next/image";
-import { MouseEventHandler, RefObject } from "react";
+import { RefObject } from "react";
 import filterCSSVariables from "../styles/components/Filter.module.scss";
 
 interface FilterProps {
@@ -9,7 +9,7 @@ interface FilterProps {
     selectedOption: string;
     refInput: RefObject<HTMLInputElement>;
     refSelect: RefObject<HTMLSelectElement>;
-    filterHandler: MouseEventHandler<HTMLDivElement>;
+    filterHandler: Function;
 }
 
 const Filter: React.FC<FilterProps> = ({ selectFilter, selectedOption, refInput, refSelect, filterHandler }) => {
@@ -29,7 +29,7 @@ const Filter: React.FC<FilterProps> = ({ selectFilter, selectedOption, refInput,
                         }
                     </select>
                 </div>
-                <div id={ filterCSSVariables.filterIconId } onClick={ filterHandler }>
+                <div id={ filterCSSVariables.filterIconId } onClick={ () => { filterHandler() } }>
                     <Image 
                         src="/filter.png"
                         alt="Filter"

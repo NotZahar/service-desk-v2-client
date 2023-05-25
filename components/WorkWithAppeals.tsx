@@ -2,6 +2,7 @@ import { AppealErrorMessage } from "@/errors/appeal-errors";
 import { baseServerPath } from "@/helpers/paths";
 import { updateAppealsIntervalTime } from "@/helpers/update-data";
 import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
+import { appealSelectionSlice } from "@/store/reducers/AppealSelectionSlice";
 import { appealsSlice } from "@/store/reducers/AppealsSlice";
 import { useEffect, useRef, useState } from "react";
 import AppealsList from "./AppealsList";
@@ -31,13 +32,15 @@ const selectOptionToUrl = (optionValue: filterSelectValue, searchPattern: string
 }
 
 interface WorkWithAppealsProps {
-    parentHandlerAppeal: Function;
+    leftClickAppealHandler: Function;
+    denyAppealTrigger: boolean;
 }
 
-const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ parentHandlerAppeal }) => {
+const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ leftClickAppealHandler, denyAppealTrigger }) => {
     const { token } = useTypedSelector(state => state.authReducer);
     const { error } = useTypedSelector(state => state.appealsReducer);
     const { setAppealsError, setAppealsSuccess } = appealsSlice.actions;
+    const { setSelectedAppealId } = appealSelectionSlice.actions;
     const dispatch = useTypedDispatch();
 
     const [isLoading, setLoading] = useState(false);
@@ -45,40 +48,10 @@ const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ parentHandlerAppeal }
     const filterInputRef = useRef<HTMLInputElement>(null);
     const filterSelectRef = useRef<HTMLSelectElement>(null);
     
-    useEffect(() => {
+    const filterHandler = (selectValue: filterSelectValue = filterSelectRef.current?.value as filterSelectValue, inputValue: string = filterInputRef.current?.value || '') => {
+        dispatch(setSelectedAppealId(undefined));
         setLoading(true);
-        fetch(`${baseServerPath}/appeals`, { headers: { Authorization: token || ''} })
-        .then(res => res.json())
-        .then(data => {
-            dispatch(setAppealsSuccess(data));
-            setLoading(false);
-        })
-        .catch(err => {
-            dispatch(setAppealsError(String(err)));
-            setLoading(false);
-        });
-
-        const interval = setInterval(() => { 
-            setLoading(true);
-            fetch(selectOptionToUrl('all', ''), {
-                headers: { Authorization: token || '' }
-            })
-            .then(res => res.json())
-            .then(data => {
-                dispatch(setAppealsSuccess(data));
-                setLoading(false);
-            })
-            .catch(err => {
-                dispatch(setAppealsError(String(err)));
-                setLoading(false);
-            });
-        }, updateAppealsIntervalTime);
-        return () => clearInterval(interval);
-    }, []);
-
-    const filterHandler = () => {
-        setLoading(true);
-        fetch(selectOptionToUrl(filterSelectRef.current?.value as filterSelectValue, filterInputRef.current?.value || ''), {
+        fetch(selectOptionToUrl(selectValue, inputValue), {
             headers: { Authorization: token || '' }
         })
         .then(res => res.json())
@@ -91,6 +64,28 @@ const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ parentHandlerAppeal }
             setLoading(false);
         });
     };
+
+    useEffect(() => {
+        dispatch(setSelectedAppealId(undefined));
+        setLoading(true);
+        fetch(`${baseServerPath}/appeals`, { headers: { Authorization: token || ''} })
+        .then(res => res.json())
+        .then(data => {
+            dispatch(setAppealsSuccess(data));
+            setLoading(false);
+        })
+        .catch(err => {
+            dispatch(setAppealsError(String(err)));
+            setLoading(false);
+        });
+
+        if (denyAppealTrigger) filterHandler('all', '');
+
+        const interval = setInterval(() => { 
+            filterHandler('all', '');
+        }, updateAppealsIntervalTime);
+        return () => clearInterval(interval);
+    }, [denyAppealTrigger]);
     
     if (isLoading) return <h2 style={{padding: '15px'}}>Подгрузка данных...</h2>;
     if (error) return <h2 style={{padding: '15px'}}>&#128308; {`${AppealErrorMessage.FetchDataProblems}: ${error}`}</h2>;
@@ -103,7 +98,7 @@ const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ parentHandlerAppeal }
                 refInput={ filterInputRef }
                 refSelect={ filterSelectRef }
                 filterHandler={ filterHandler } />
-            <AppealsList parentAppealHandler={ parentHandlerAppeal } />
+            <AppealsList leftClickAppealHandler={ leftClickAppealHandler } />
         </>
     );
 };

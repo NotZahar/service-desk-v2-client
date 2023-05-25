@@ -5,10 +5,10 @@ import appealsListCSSVariables from "../styles/components/AppealsList.module.scs
 import Appeal from "./Appeal";
 
 interface AppealsListProps {
-    parentAppealHandler: Function;
+    leftClickAppealHandler: Function;
 }
 
-const AppealsList: React.FC<AppealsListProps> = ({ parentAppealHandler }) => {
+const AppealsList: React.FC<AppealsListProps> = ({ leftClickAppealHandler }) => {
     const { appeals } = useTypedSelector(state => state.appealsReducer);
 
     let openAppeals: IAppeal[] = [];
@@ -45,23 +45,34 @@ const AppealsList: React.FC<AppealsListProps> = ({ parentAppealHandler }) => {
             </div>
 
             <div id={ appealsListCSSVariables.appealsId }>
-                {   openAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name }) => {
-                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name } } parentHandler={ parentAppealHandler } key={ id } />;
+                {   openAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name, customer_name, customer_email }) => {
+                        return <Appeal 
+                            appeal={ { id, theme, text, file, customer_id, date, status_id, status_name, customer_name, customer_email } } 
+                            leftClickHandler={ leftClickAppealHandler }
+                            key={ id } />;
                     }) 
                 }
 
-                {   atWorkAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name }) => {
-                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name } } parentHandler={ parentAppealHandler } key={ id } />;
+                {   atWorkAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name, customer_name, customer_email }) => {
+                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name, customer_name, customer_email } } 
+                            leftClickHandler={ leftClickAppealHandler } 
+                            key={ id } />;
                     }) 
                 }
 
-                {   closedAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name }) => {
-                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name } } parentHandler={ parentAppealHandler } key={ id } />;
+                {   closedAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name, customer_name, customer_email }) => {
+                        return <Appeal 
+                            appeal={ { id, theme, text, file, customer_id, date, status_id, status_name, customer_name, customer_email } } 
+                            leftClickHandler={ leftClickAppealHandler } 
+                            key={ id } />;
                     }) 
                 }
 
-                {   rejectedAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name }) => {
-                        return <Appeal appeal={ { id, theme, text, file, customer_id, date, status_id, status_name } } parentHandler={ parentAppealHandler } key={ id } />;
+                {   rejectedAppeals.map(({ id, theme, text, file, customer_id, date, status_id, status_name, customer_name, customer_email }) => {
+                        return <Appeal  
+                            appeal={ { id, theme, text, file, customer_id, date, status_id, status_name, customer_name, customer_email } } 
+                                leftClickHandler={ leftClickAppealHandler } 
+                                key={ id } />;
                     }) 
                 }
             </div>

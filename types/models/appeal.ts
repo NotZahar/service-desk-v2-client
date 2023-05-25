@@ -7,4 +7,6 @@ export interface IAppeal {
     date: Date;
     status_id: string;
     status_name: string;
+    customer_name: string;
+    customer_email: string;
 }

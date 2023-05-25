@@ -1,0 +1,99 @@
+@use '../colors';
+@use '../general';
+
+$appealInfoId: 'appealInfoId';
+$infoInputs: 'infoInputs';
+$infoTextarea: 'infoTextarea';
+$columnClass: 'columnClass';
+$inputDataClass: 'inputDataClass';
+
+$appeal-info-font-size: 18px;
+$appeal-info-margin-bottom: 15px;
+$appeal-p-margin-bottom: 4px;
+
+$column-class-margin-right: 15px;
+
+$info-textarea-width: 100%;
+$info-textarea-height: fit-content;
+
+$input-data-class-width: 300px;
+$input-data-class-margin-bottom: 8px;
+
+##{$appealInfoId} {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    font-size: $appeal-info-font-size;
+    margin-bottom: $appeal-info-margin-bottom;
+
+    p {
+        margin-bottom: $appeal-p-margin-bottom;
+    }
+
+    ##{$infoInputs} {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: $appeal-info-margin-bottom;
+
+        input {
+            border-radius: general.$button-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        .#{$columnClass} {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            margin-right: $column-class-margin-right;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            .#{$inputDataClass} {
+                display: flex;
+                flex-direction: column;
+                width: $input-data-class-width;
+                margin-bottom: $input-data-class-margin-bottom;
+
+                &:last-child {
+                    margin-bottom: 0px;
+                }
+            }
+        }
+    }
+
+    ##{$infoTextarea} {
+        width: $info-textarea-width;
+        height: $info-textarea-height;
+
+        textarea {
+            width: general.$textarea-width;
+            height: general.$textarea-height;
+            background-color: colors.$secondary-color-light;
+            color: colors.$main-color-dark;
+            border-radius: general.$button-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+            resize: none;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+}
+
+:export {
+    appealInfoId: $appealInfoId;
+    infoInputs: $infoInputs;
+    infoTextarea: $infoTextarea;
+    columnClass: $columnClass;
+    inputDataClass: $inputDataClass;
+}

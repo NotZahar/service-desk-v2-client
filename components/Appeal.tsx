@@ -1,7 +1,9 @@
 import { AppealStatus } from "@/helpers/appeal-statuses";
-import { useTypedDispatch } from "@/hooks/redux";
+import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
+import { appealSelectionSlice } from "@/store/reducers/AppealSelectionSlice";
 import { currentAppealSlice } from "@/store/reducers/CurrentAppealSlice";
 import { IAppeal } from "@/types/models/appeal";
+import { MouseEventHandler, useEffect, useRef, useState } from "react";
 import appealCSSVariables from "../styles/components/Appeal.module.scss";
 
 const statusTypeToCSS = (statusName: string): string => {
@@ -21,23 +23,53 @@ const statusTypeToCSS = (statusName: string): string => {
 
 interface AppealProps {
     appeal: IAppeal;
-    parentHandler: Function;
+    leftClickHandler: Function;
 }
 
-const Appeal: React.FC<AppealProps> = ({ appeal, parentHandler }) => {
+const Appeal: React.FC<AppealProps> = ({ appeal, leftClickHandler }) => {
+    const { selectedAppealId } = useTypedSelector(state => state.appealSelectionReducer);
     const { setAppeal } = currentAppealSlice.actions;
+    const { setSelectedAppealId } = appealSelectionSlice.actions;
     const dispatch = useTypedDispatch();
+
+    const [appealClassName, setAppealClassName] = useState('');
+    const appealSelected = useRef(false);
+
+    const defaultClassName = `${appealCSSVariables.appealClass} ${statusTypeToCSS(appeal.status_name)}`; 
+    const selectedClassName = `${defaultClassName} ${appealCSSVariables.appealSelected}`;
+
+    useEffect(() => {
+        setAppealClassName(defaultClassName);
+        
+        if (!appealSelected.current && selectedAppealId === appeal.id) {
+            setAppealClassName(selectedClassName);
+            appealSelected.current = true;
+        } else {
+            setAppealClassName(defaultClassName);
+            appealSelected.current = false;
+        }
+    }, [selectedAppealId]);
 
     const dateString = new Date(appeal.date).toLocaleString('ru-RU');
 
-    const onClickHandler = () => {
+    const onLeftClickHandler = () => {
         dispatch(setAppeal(appeal));
-        parentHandler();
+        leftClickHandler();
+    };
+
+    const onRightClickHandler: MouseEventHandler<HTMLDivElement> = (event) => {
+        event.preventDefault();
+        if (appealSelected.current && selectedAppealId === appeal.id) {
+            dispatch(setSelectedAppealId(undefined));
+            return;
+        }
+
+        dispatch(setSelectedAppealId(appeal.id));
     };
 
     return (
         <>  
-            <div id={ appeal.id } className={ `${appealCSSVariables.appealClass} ${statusTypeToCSS(appeal.status_name)}` } onClick={ onClickHandler }>
+            <div id={ appeal.id } className={ appealClassName } onClick={ onLeftClickHandler } onContextMenu={ onRightClickHandler } >
                 <p className={ appealCSSVariables.appealTheme } title={ appeal.theme } >{ appeal.theme }</p>
                 <p className={ appealCSSVariables.appealDate } title={ dateString } >{ dateString }</p>
                 <p className={ appealCSSVariables.appealStatus } title={ appeal.status_name } >{ appeal.status_name }</p>
