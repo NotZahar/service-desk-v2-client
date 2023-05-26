@@ -1,1 +1,1 @@
-export const updateAppealsIntervalTime: number = 60 * 1000;
+export const updateAppealsIntervalTime: number = 90 * 1000;

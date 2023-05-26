@@ -1,0 +1,132 @@
+@use '../colors';
+@use '../general';
+
+$newRequestId: 'newRequestId';
+$newRequestInputs: 'newRequestInputs';
+$newRequestTextarea: 'newRequestTextarea';
+$columnClass: 'columnClass';
+$inputDataClass: 'inputDataClass';
+
+$new-request-font-size: 18px;
+$new-request-margin-bottom: 15px;
+$new-request-p-margin-bottom: 4px;
+
+$column-class-margin-right: 15px;
+
+$input-data-class-width: 300px;
+$input-data-class-margin-bottom: 8px;
+
+$new-request-textarea-width: 100%;
+$new-request-textarea-height: fit-content;
+
+$button-width: 100%;
+$select-width: 100%;
+
+$select-font-size: 19px;
+
+##{$newRequestId} {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    font-size: $new-request-font-size;
+    margin-bottom: $new-request-margin-bottom;
+
+    p {
+        margin-bottom: $new-request-p-margin-bottom;
+    }
+
+    ##{$newRequestInputs} {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: $new-request-margin-bottom;
+
+        input {
+            border-radius: general.$button-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+
+            &:focus {
+                outline: solid general.$input-focus-outline-width colors.$main-accept-color;
+            }
+        }
+
+        .#{$columnClass} {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            margin-right: $column-class-margin-right;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            .#{$inputDataClass} {
+                display: flex;
+                flex-direction: column;
+                width: $input-data-class-width;
+                margin-bottom: $input-data-class-margin-bottom;
+
+                &:last-child {
+                    margin-bottom: 0px;
+                }
+
+                button {
+                    height: fit-content;
+                    width: $button-width;
+                    background-color: colors.$main-accept-color;
+                    color: colors.$main-color-dark;
+                    border-style: none;
+                    border-radius: general.$button-border-radius;
+                    padding: general.$input-padding;
+                    margin-right: general.$button-margin-right;
+                    transition: background-color general.$button-transition-time, color general.$button-transition-time;
+
+                    &:hover {
+                        cursor: pointer;
+                        background-color: colors.$main-color-dark;
+                        color: colors.$main-color-light;
+                    }
+                }
+
+                select {
+                    width: $select-width;
+                    background-color: colors.$secondary-color-light;
+                    color: colors.$main-color-dark;
+                    border-radius: general.$input-border-radius;
+                    border-style: none;
+                    padding: general.$input-padding;
+                    font-size: $select-font-size;
+                }
+            }
+        }
+    }
+
+    ##{$newRequestTextarea} {
+        width: $new-request-textarea-width;
+        height: $new-request-textarea-height;
+
+        textarea {
+            width: general.$textarea-width;
+            height: general.$textarea-height;
+            background-color: colors.$secondary-color-light;
+            color: colors.$main-color-dark;
+            border-radius: general.$button-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+            resize: none;
+
+            &:focus {
+                outline: solid general.$input-focus-outline-width colors.$main-accept-color;
+            }
+        }
+    }
+}
+
+:export {
+    newRequestId: $newRequestId;
+    newRequestInputs: $newRequestInputs;
+    newRequestTextarea: $newRequestTextarea;
+    columnClass: $columnClass;
+    inputDataClass: $inputDataClass;
+}

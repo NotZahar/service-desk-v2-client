@@ -1,5 +1,6 @@
 import AppealInfoModal from "@/components/AppealInfoModal";
 import Modal from "@/components/Modal";
+import NewRequestModal from "@/components/NewRequestModal";
 import WorkWithAppeals from "@/components/WorkWithAppeals";
 import { AppealErrorMessage } from "@/errors/appeal-errors";
 import { AppealStatus } from "@/helpers/appeal-statuses";
@@ -16,9 +17,11 @@ const Requests = () => {
     const { resetAppeal } = currentAppealSlice.actions;
     const { currentAppeal } = useTypedSelector(state => state.currentAppealReducer);
     const { token } = useTypedSelector(state => state.authReducer);
+    const { selectedAppealId } = useTypedSelector(state => state.appealSelectionReducer);
     const dispatch = useTypedDispatch();
 
     const [appealOpened, setAppealOpened] = useState(false);
+    const [newRequestOpened, setNewRequestOpened] = useState(false);
     const [appealErrorsVisible, setAppealErrorsVisible] = useState(false);
     const [appealErrorMessages, setAppealErrorMessages] = useState<string[]>();
     const [denyAppealTrigger, setDenyAppealTrigger] = useState(false);
@@ -59,12 +62,37 @@ const Requests = () => {
         }
     };
 
+    const createNewRequestWindow = () => {
+        setNewRequestOpened(prev => !prev);
+    };
+
+    const createNewRequest = () => {
+        
+    }
+
+    const cancelNewRequest = () => {
+        setNewRequestOpened(prev => !prev);
+    };
+
     return (
         <>
             <DispatcherLayout>
                 <div id={ requestsCSSVariables.mainContentId }>
                     <div id={ requestsCSSVariables.topPanelId }>
-                        <div id={ requestsCSSVariables.newRequestBtnId }>Новая заявка</div>
+                        <div id={ requestsCSSVariables.newRequestBtnId } onClick={ createNewRequestWindow } >
+                            <p>Новая заявка</p>
+                        </div>
+                        {   newRequestOpened &&
+                            <Modal
+                                buttons={[
+                                    { text: 'Создать', onClick: createNewRequest },
+                                    { text: 'Отмена', id: requestsCSSVariables.cancelBtnId, onClick: cancelNewRequest }
+                                ]}
+                                widthFitContent={ true } >
+                                <NewRequestModal 
+                                    selectedAppealId={ selectedAppealId } />
+                            </Modal>
+                        }
                     </div>
                     <div id={ requestsCSSVariables.appealsAndRequestsId }>
                         <div id={ requestsCSSVariables.appealsId }>
@@ -75,7 +103,7 @@ const Requests = () => {
                                 <Modal
                                     buttons={[ 
                                         { text: 'Закрыть', onClick: cancelAppeal },
-                                        { text: 'Отклонить', id: requestsCSSVariables.cancelBtnId, onClick: denyAppeal }
+                                        { text: 'Отклонить', id: requestsCSSVariables.denyBtnId, onClick: denyAppeal }
                                     ]}
                                     widthFitContent={ true } >
                                     <AppealInfoModal appealInfo={ currentAppeal } />

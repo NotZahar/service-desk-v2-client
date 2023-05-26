@@ -59,6 +59,9 @@ const Appeal: React.FC<AppealProps> = ({ appeal, leftClickHandler }) => {
 
     const onRightClickHandler: MouseEventHandler<HTMLDivElement> = (event) => {
         event.preventDefault();
+        
+        if (appeal.status_name !== AppealStatus.OPEN) return;
+        
         if (appealSelected.current && selectedAppealId === appeal.id) {
             dispatch(setSelectedAppealId(undefined));
             return;

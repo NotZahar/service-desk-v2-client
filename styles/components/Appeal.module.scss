@@ -30,12 +30,12 @@ $appeal-rejected-color: colors.$main-color-light;
 $appeal-at-work-background-color: colors.$secondary-accept-color;
 $appeal-at-work-color: colors.$main-color-light;
 
-$appeal-selected-background-color: red;
-$appeal-selected-color: colors.$main-color-light;
+$appeal-selected-background-color: colors.$main-select-color;
+$appeal-selected-color: colors.$main-color-dark;
 
 $appeal-height: 45px;
 $appeal-padding: 10px 20px;
-$appeal-margin: 12px;
+$appeal-margin: 10px;
 $appeal-font-size: 16px;
 
 $appeal-theme-width: 320px; 

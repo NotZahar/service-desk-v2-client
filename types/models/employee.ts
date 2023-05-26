@@ -1,4 +1,4 @@
-export interface ICustomer {
+export interface IEmployee {
     id: string;
     email: string;
     role_id: string;
@@ -6,6 +6,7 @@ export interface ICustomer {
     second_name: string;
     patronymic: string | null;
     phone_number: string | null;
-    organization: string | null;
+    department: string;
+    appointment: string;
     role_name: string;
 }

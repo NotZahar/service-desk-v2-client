@@ -7,6 +7,7 @@ import { appealsSlice } from "@/store/reducers/AppealsSlice";
 import { useEffect, useRef, useState } from "react";
 import AppealsList from "./AppealsList";
 import Filter from "./Filter";
+import Loader from "./Loader";
 
 type filterSelectValue = 'all' | 'theme' | 'date' | 'status';
 type filterSelectTitle = 'Все' | 'Тема' | 'Дата регистрации' | 'Статус';
@@ -87,8 +88,8 @@ const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ leftClickAppealHandle
         return () => clearInterval(interval);
     }, [denyAppealTrigger]);
     
-    if (isLoading) return <h2 style={{padding: '15px'}}>Подгрузка данных...</h2>;
-    if (error) return <h2 style={{padding: '15px'}}>&#128308; {`${AppealErrorMessage.FetchDataProblems}: ${error}`}</h2>;
+    if (isLoading) return <Loader error={ false } message={ 'Подгрузка данных...' } />;
+    if (error) return <Loader error={ true } message={ `${AppealErrorMessage.FetchDataProblems}: ${error}` } />;
 
     return (
         <>  

@@ -82,6 +82,16 @@ $requests-height: 100%;
     }
 
     ##{$cancelBtnId} {
+        background-color: colors.$main-color-light !important;
+        color: colors.$main-color-dark !important;
+
+        &:hover {
+            background-color: colors.$main-color-dark !important;
+            color: colors.$main-color-light !important;
+        }
+    }
+
+    ##{$denyBtnId} {
         background-color: colors.$main-error-color !important;
         color: colors.$main-color-light !important;
 
