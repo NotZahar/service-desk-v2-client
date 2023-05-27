@@ -1,0 +1,77 @@
+@use '../colors';
+@use '../general';
+@use '../components/Request.module.scss' as request;
+
+$requestsId: 'requestsId';
+$columnNamesId: 'columnNamesId';
+$themeColumn: 'themeColumn';
+$priorityColumn: 'priorityColumn';
+$plannedDateColumn: 'plannedDateColumn';
+$dateColumn: 'dateColumn';
+$statusColumn: 'statusColumn';
+
+$column-names-width: 100%;
+$column-names-height: fit-content;
+$column-names-padding: 10px 20px;
+$column-names-font-size: 18px;
+
+$requests-width: 100%;
+$requests-height: 87%;
+
+##{$columnNamesId} {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: $column-names-width;
+    height: $column-names-height;
+    background-color: colors.$main-border-color;
+    color: colors.$main-color-light;
+    padding: $column-names-padding;
+    font-size: $column-names-font-size;
+
+    p {
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .#{$themeColumn} {
+        width: request.$request-theme-width;
+    }
+
+    .#{$priorityColumn} {
+        width: request.$request-priority-width;
+    }
+
+    .#{$plannedDateColumn} {
+        width: request.$request-planned-date-width;
+    }
+
+    .#{$dateColumn} {
+        width: request.$request-date-width;
+        margin-left: request.$request-date-margin-left;
+    }
+
+    .#{$statusColumn} {
+        width: request.$request-status-width;
+    }
+}
+
+##{$requestsId} {
+    display: flex;
+    flex-direction: column;
+    width: $requests-width;
+    height: $requests-height;
+    overflow-y: scroll;
+}
+
+:export {
+    requestsId: $requestsId;
+    columnNamesId: $columnNamesId;
+    themeColumn: $themeColumn;
+    priorityColumn: $priorityColumn;
+    plannedDateColumn: $plannedDateColumn;
+    dateColumn: $dateColumn;
+    statusColumn: $statusColumn;
+}

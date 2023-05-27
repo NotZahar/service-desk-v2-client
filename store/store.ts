@@ -2,7 +2,9 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./reducers/UserSlice"; 
 import authReducer from "./reducers/AuthSlice";
 import appealsReducer from "./reducers/AppealsSlice";
+import requestsReducer from "./reducers/RequestsSlice";
 import currentAppealReducer from "./reducers/CurrentAppealSlice";
+import currentRequestReducer from "./reducers/CurrentRequestSlice";
 import appealSelectionReducer from "./reducers/AppealSelectionSlice";
 import { persistReducer } from "redux-persist";
 import createwebStorage from "redux-persist/lib/storage/createWebStorage";
@@ -27,9 +29,11 @@ const persistConfig = {
     key: 'root',
     storage: storage,
     blacklist: [
-        'appealReducer', 
+        'appealsReducer', 
         'currentAppealReducer', 
-        'appealSelectionReducer'
+        'appealSelectionReducer',
+        'requestsReducer',
+        'currentRequestReducer'
     ] 
 }
 
@@ -38,7 +42,9 @@ const rootReducer = combineReducers({
     authReducer,
     appealsReducer,
     currentAppealReducer,
-    appealSelectionReducer
+    appealSelectionReducer,
+    requestsReducer,
+    currentRequestReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

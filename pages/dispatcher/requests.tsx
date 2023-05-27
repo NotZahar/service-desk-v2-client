@@ -14,9 +14,15 @@ import { currentAppealSlice } from "@/store/reducers/CurrentAppealSlice";
 import axios, { AxiosError } from "axios";
 import { useRef, useState } from "react";
 import requestsCSSVariables from "../../styles/pages/dispatcher-requests.module.scss";
+import WorkWithRequests from "@/components/WorkWithRequests";
+import { useRouter } from "next/router";
+import { appealSelectionSlice } from "@/store/reducers/AppealSelectionSlice";
 
 const Requests = () => {
+    const router = useRouter();
+    
     const { resetAppeal } = currentAppealSlice.actions;
+    const { setSelectedAppealId } = appealSelectionSlice.actions;
     const { currentAppeal } = useTypedSelector(state => state.currentAppealReducer);
     const { token } = useTypedSelector(state => state.authReducer);
     const { selectedAppealId } = useTypedSelector(state => state.appealSelectionReducer);
@@ -78,6 +84,11 @@ const Requests = () => {
                 : undefined);
             setAppealErrorsVisible(true);
         }
+    };
+
+    const openRequest = () => {
+        dispatch(setSelectedAppealId(undefined));
+        router.push('/dispatcher/request-view');
     };
 
     const createNewRequestWindow = () => {
@@ -185,10 +196,9 @@ const Requests = () => {
                             }
                         </div>
                         <div id={ requestsCSSVariables.requestsId }>
-                            {/* <WorkWithRequests
-                                leftClickAppealHandler={ openAppeal }
-                                refreshAppealsTrigger={ refreshAppealsTrigger } />
-                            {   requestOpened &&
+                            <WorkWithRequests
+                                leftClickAppealHandler={ openRequest } />
+                            {/* {   requestOpened &&
                                 <Modal
                                     buttons={[ 
                                         { text: 'Закрыть', onClick: cancelAppeal },
@@ -198,7 +208,7 @@ const Requests = () => {
                                     <AppealInfoModal appealInfo={ currentAppeal } />
                                 </Modal>
                             }
-                            {   appealErrorsVisible &&
+                            {   requestErrorsVisible &&
                                 <Modal
                                     title="Ошибка!"
                                     errors={ appealErrorMessages && appealErrorMessages.map((msg) => { return { text: msg }; }) }

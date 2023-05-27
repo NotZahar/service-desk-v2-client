@@ -86,7 +86,7 @@ $appeal-status-margin-left: 10px;
     }
 }
 
-.#{appealOpen} {
+.#{$appealOpen} {
     background-color: $appeal-open-background-color;
     color: $appeal-open-color;
 }
@@ -96,12 +96,12 @@ $appeal-status-margin-left: 10px;
     color: $appeal-closed-color;
 }
 
-.#{appealRejected} {
+.#{$appealRejected} {
     background-color: $appeal-rejected-background-color;
     color: $appeal-rejected-color;
 }
 
-.#{appealAtWork} {
+.#{$appealAtWork} {
     background-color: $appeal-at-work-background-color;
     color: $appeal-at-work-color;
 }

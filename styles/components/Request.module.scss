@@ -1,0 +1,123 @@
+@use '../colors';
+@use '../general';
+
+$requestClass: 'requestClass';
+$requestTheme: 'requestTheme';
+$requestPriority: 'requestPriority';
+$requestPlannedDate: 'requestPlannedDate';
+$requestDate: 'requestDate';
+$requestStatus: 'requestStatus';
+
+$requestAtWork: 'requestAtWork';
+$requestClosed: 'requestClosed';
+$requestFailed: 'requestFailed';
+
+$request-default-background-color: colors.$main-color-light;
+$request-default-color: colors.$main-color-dark;
+$request-default-hover-background-color: colors.$main-color-dark;
+$request-default-hover-color: colors.$main-color-light;
+
+$request-at-work-background-color: colors.$secondary-accept-color;
+$request-at-work-color: colors.$main-color-light;
+
+$request-closed-background-color: colors.$tertiary-accept-color;
+$request-closed-color: colors.$main-color-light;
+
+$request-failed-background-color: colors.$main-border-color;
+$request-failed-color: colors.$main-color-light;
+
+$request-height: 40px;
+$request-padding: 10px 20px;
+$request-margin: 10px;
+$request-font-size: 16px;
+
+$request-theme-width: 250px;
+$request-priority-width: 80px;
+$request-planned-date-width: 150px;
+$request-date-width: 150px;
+$request-status-width: 80px;
+
+$request-date-margin-left: 30px;
+
+.#{$requestClass} {
+    display: flex;
+    flex-direction: row;
+    height: $request-height;
+    background-color: $request-default-background-color;
+    color: $request-default-color;
+    border-style: none;
+    padding: $request-padding;
+    margin-bottom: $request-margin;
+    font-size: $request-font-size;
+    transition: background-color general.$button-transition-time, color general.$button-transition-time;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $request-default-hover-background-color;
+        color: $request-default-hover-color;
+    }
+
+    &:first-child {
+        margin-top: $request-margin;
+    }
+
+    p {
+        flex-grow: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    $requestPriority: 'requestPriority';
+    $requestPlannedDate: 'requestPlannedDate';
+    $requestDate: 'requestDate';
+    $requestStatus: 'requestStatus';
+
+    .#{$requestTheme} {
+        width: $request-theme-width;
+    }
+    
+    .#{$requestPriority} {
+        width: $request-priority-width;
+    }
+
+    .#{$requestPlannedDate} {
+        width: $request-planned-date-width;
+    }
+
+    .#{$requestDate} {
+        width: $request-date-width;
+        margin-left: $request-date-margin-left;
+    }
+
+    .#{$requestStatus} {
+        width: $request-status-width;
+    }
+}
+
+.#{$requestAtWork} {
+    background-color: $request-at-work-background-color;
+    color: $request-at-work-color;
+}
+
+.#{$requestClosed} {
+    background-color: $request-closed-background-color;
+    color: $request-closed-color;
+}
+
+.#{$requestFailed} {
+    background-color: $request-failed-background-color;
+    color: $request-failed-color;
+}
+
+:export {
+    requestClass: $requestClass;
+    requestTheme: $requestTheme;
+    requestPriority: $requestPriority;
+    requestPlannedDate: $requestPlannedDate;
+    requestDate: $requestDate;
+    requestStatus: $requestStatus;
+    requestAtWork: $requestAtWork;
+    requestClosed: $requestClosed;
+    requestFailed: $requestFailed;
+}

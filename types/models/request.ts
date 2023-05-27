@@ -14,4 +14,15 @@ export interface IRequest {
     status_id: string;
     customer_id: string;
     finish_date: Date;
+    controller_name: string;
+    controller_email: string;
+    controller_appointment: string;
+    executor_name: string;
+    executor_email: string;
+    executor_appointment: string;
+    priority_name: string;
+    type_name: string;
+    status_name: string;
+    customer_name: string;
+    customer_email: string;
 }
