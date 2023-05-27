@@ -34,10 +34,10 @@ const selectOptionToUrl = (optionValue: filterSelectValue, searchPattern: string
 
 interface WorkWithAppealsProps {
     leftClickAppealHandler: Function;
-    denyAppealTrigger: boolean;
+    refreshAppealsTrigger: boolean;
 }
 
-const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ leftClickAppealHandler, denyAppealTrigger }) => {
+const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ leftClickAppealHandler, refreshAppealsTrigger }) => {
     const { token } = useTypedSelector(state => state.authReducer);
     const { error } = useTypedSelector(state => state.appealsReducer);
     const { setAppealsError, setAppealsSuccess } = appealsSlice.actions;
@@ -80,13 +80,13 @@ const WorkWithAppeals: React.FC<WorkWithAppealsProps> = ({ leftClickAppealHandle
             setLoading(false);
         });
 
-        if (denyAppealTrigger) filterHandler('all', '');
+        if (refreshAppealsTrigger) filterHandler('all', '');
 
         const interval = setInterval(() => { 
             filterHandler('all', '');
         }, updateAppealsIntervalTime);
         return () => clearInterval(interval);
-    }, [denyAppealTrigger]);
+    }, [refreshAppealsTrigger]);
     
     if (isLoading) return <Loader error={ false } message={ 'Подгрузка данных...' } />;
     if (error) return <Loader error={ true } message={ `${AppealErrorMessage.FetchDataProblems}: ${error}` } />;

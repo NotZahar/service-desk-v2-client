@@ -26,7 +26,11 @@ const storage = typeof window !== 'undefined' ? createwebStorage('local') : crea
 const persistConfig = {
     key: 'root',
     storage: storage,
-    blacklist: ['appealReducer', 'currentAppealReducer', 'appealSelectionReducer'] 
+    blacklist: [
+        'appealReducer', 
+        'currentAppealReducer', 
+        'appealSelectionReducer'
+    ] 
 }
 
 const rootReducer = combineReducers({

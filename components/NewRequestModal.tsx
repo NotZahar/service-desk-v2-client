@@ -6,20 +6,37 @@ import { useTypedSelector } from "@/hooks/redux";
 import useUUID from "@/hooks/useUUID";
 import { ICustomer } from "@/types/models/customer";
 import { IEmployee } from "@/types/models/employee";
-import { useEffect, useRef, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import newRequestModalCSSVariables from "../styles/components/NewRequestModal.module.scss";
 
 interface NewRequestModalProps {
-    selectedAppealId: string | undefined;
+    defaultStatus: requestStatus;
+    themeInputRef: RefObject<HTMLInputElement>;
+    prioritiesSelectRef: RefObject<HTMLSelectElement>;
+    statusesSelectRef: RefObject<HTMLSelectElement>;
+    typesSelectRef: RefObject<HTMLSelectElement>;
+    customersInputRef: RefObject<HTMLInputElement>;
+    contractsInputRef: RefObject<HTMLInputElement>;
+    controllersInputRef: RefObject<HTMLInputElement>;
+    executorsInputRef: RefObject<HTMLInputElement>;
+    plannedDateInputRef: RefObject<HTMLInputElement>;
+    descriptionInputRef: RefObject<HTMLTextAreaElement>;
 }
 
-const NewRequestModal: React.FC<NewRequestModalProps> = ({ selectedAppealId }) => {
+const NewRequestModal: React.FC<NewRequestModalProps> = ({ 
+        defaultStatus,
+        themeInputRef,
+        prioritiesSelectRef,
+        statusesSelectRef,
+        typesSelectRef,
+        customersInputRef,
+        contractsInputRef,
+        controllersInputRef,
+        executorsInputRef,
+        plannedDateInputRef,
+        descriptionInputRef
+    }) => {
     const { token } = useTypedSelector(state => state.authReducer);
-
-    const themeRef = useRef<HTMLInputElement>(null);
-    const prioritiesSelectRef = useRef<HTMLSelectElement>(null);
-    const statusesSelectRef = useRef<HTMLSelectElement>(null);
-    const typesSelectRef = useRef<HTMLSelectElement>(null);
 
     const [customersData, setCustomersData] = useState<ICustomer[] | undefined>(undefined);
     const [employeesData, setEmployeesData] = useState<IEmployee[] | undefined>(undefined);
@@ -33,8 +50,6 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({ selectedAppealId }) =
     const prioritiesKeys = useUUID(priorities.length);
     const statusesKeys = useUUID(statuses.length);
     const typesKeys = useUUID(types.length);
-
-    const defaultStatus: requestStatus = 'AT_WORK';
 
     const datalistCustomersLinkId = 'customers';
     const datalistControllersLinkId = 'controllers';
@@ -69,7 +84,7 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({ selectedAppealId }) =
                     <div className={ newRequestModalCSSVariables.columnClass }>
                         <div className={ newRequestModalCSSVariables.inputDataClass }>
                             <p>Тема</p>
-                            <input ref={ themeRef } type="text" />
+                            <input ref={ themeInputRef } type="text" />
                         </div>
                         <div className={ newRequestModalCSSVariables.inputDataClass }>
                             <p>Тип заявки</p>
@@ -100,7 +115,7 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({ selectedAppealId }) =
                         </div>
                         <div className={ newRequestModalCSSVariables.inputDataClass }>
                             <p>Клиент</p>
-                            <input list={ datalistCustomersLinkId } placeholder={ fetchError || '' } type="text" />
+                            <input ref={ customersInputRef } list={ datalistCustomersLinkId } placeholder={ fetchError || '' } type="text" />
                             <datalist id={ datalistCustomersLinkId }>
                                 {   customersData?.map(({ id, first_name, email }) => {
                                         return <option key={ id } value={ `${first_name} ${email}` }></option>
@@ -112,7 +127,7 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({ selectedAppealId }) =
                     <div className={ newRequestModalCSSVariables.columnClass }>
                         <div className={ newRequestModalCSSVariables.inputDataClass }>
                             <p>Договор</p>
-                            <input list={ datalistContractsLinkId } placeholder={ fetchError || '' } type="text" />
+                            <input ref={ contractsInputRef } list={ datalistContractsLinkId } placeholder={ fetchError || '' } type="text" />
                             <datalist id={ datalistContractsLinkId }>
                                 {   contractsData?.map((contract, index) => {
                                         return <option key={ index } value={ contract }></option>
@@ -122,7 +137,7 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({ selectedAppealId }) =
                         </div>
                         <div className={ newRequestModalCSSVariables.inputDataClass }>
                             <p>Ответственный</p>
-                            <input list={ datalistControllersLinkId } placeholder={ fetchError || '' } type="text" />
+                            <input ref={ controllersInputRef } list={ datalistControllersLinkId } placeholder={ fetchError || '' } type="text" />
                             <datalist id={ datalistControllersLinkId }>
                                 {   employeesData?.map(({ id, first_name, email, appointment }) => {
                                         return <option key={ id } value={ `${first_name} ${email} ${appointment}` }></option>
@@ -132,7 +147,7 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({ selectedAppealId }) =
                         </div>
                         <div className={ newRequestModalCSSVariables.inputDataClass }>
                             <p>Исполнитель</p>
-                            <input list={ datalistExecutorsLinkId } placeholder={ fetchError || '' } type="text" />
+                            <input ref={ executorsInputRef } list={ datalistExecutorsLinkId } placeholder={ fetchError || '' } type="text" />
                             <datalist id={ datalistExecutorsLinkId }>
                                 {   employeesData?.map(({ id, first_name, email, appointment }) => {
                                         return <option key={ id } value={ `${first_name} ${email} ${appointment}` }></option>
@@ -146,13 +161,13 @@ const NewRequestModal: React.FC<NewRequestModalProps> = ({ selectedAppealId }) =
                         </div>
                         <div className={ newRequestModalCSSVariables.inputDataClass }>
                             <p>Срок исполнения</p>
-                            <input type="datetime-local"></input>
+                            <input ref={ plannedDateInputRef } type="datetime-local"></input>
                         </div>
                     </div>
                 </div>
                 <div id={ newRequestModalCSSVariables.newRequestTextarea }>
                     <p>Описание заявки</p>
-                    <textarea></textarea>
+                    <textarea ref={ descriptionInputRef }></textarea>
                 </div>
             </div>
         </>
