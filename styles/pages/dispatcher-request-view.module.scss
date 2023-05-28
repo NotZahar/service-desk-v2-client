@@ -1,0 +1,61 @@
+@use '../colors';
+@use '../general';
+
+$mainContentId: 'mainContentId'; 
+$mainColumnId: 'mainColumnId'; 
+$additionalColumnId: 'additionalColumnId';
+$requestInfoId: 'requestInfoId';
+$chatsId: 'chatsId';
+
+$main-content-width: 100%;
+$main-content-height: 100%;
+$main-content-padding: 15px;
+
+$main-column-width: 78%;
+
+$request-info-height: 45%;
+$request-info-margin-bottom: 15px;
+
+$chats-height: 55%;
+
+$additional-column-width: 22%;
+$additional-column-margin-left: 15px;
+
+##{$mainContentId} {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: $main-content-width;
+    height: $main-content-height;
+    padding: $main-content-padding;
+
+    ##{$mainColumnId} {
+        display: flex;
+        flex-direction: column;
+        width: $main-column-width;
+
+        ##{$requestInfoId} {
+            height: $request-info-height;
+            margin-bottom: $request-info-margin-bottom;
+        }
+
+        ##{$chatsId} {
+            height: $chats-height;
+        }
+    }
+
+    ##{$additionalColumnId} {
+        display: flex;
+        flex-direction: column;
+        width: $additional-column-width;
+        margin-left: $additional-column-margin-left;
+    }
+}
+
+:export {
+    mainContentId: $mainContentId;
+    mainColumnId: $mainColumnId; 
+    additionalColumnId: $additionalColumnId;
+    requestInfoId: $requestInfoId;
+    chatsId: $chatsId;
+}

@@ -39,9 +39,10 @@ const selectOptionToUrl = (optionValue: filterSelectValue, searchPattern: string
 
 interface WorkWithRequestsProps {
     leftClickAppealHandler: Function;
+    refreshRequestsTrigger: boolean;
 }
 
-const WorkWithRequests: React.FC<WorkWithRequestsProps> = ({ leftClickAppealHandler }) => {
+const WorkWithRequests: React.FC<WorkWithRequestsProps> = ({ leftClickAppealHandler, refreshRequestsTrigger }) => {
     const { token } = useTypedSelector(state => state.authReducer);
     const { error } = useTypedSelector(state => state.requestsReducer);
     const { setRequestsSuccess, setRequestsError } = requestsSlice.actions;
@@ -81,11 +82,13 @@ const WorkWithRequests: React.FC<WorkWithRequestsProps> = ({ leftClickAppealHand
             setLoading(false);
         });
 
+        if (refreshRequestsTrigger) filterHandler('all', '');
+
         const interval = setInterval(() => { 
             filterHandler('all', '');
         }, updateRequestsIntervalTime);
         return () => clearInterval(interval);
-    }, []);
+    }, [refreshRequestsTrigger]);
     
     if (isLoading) return <Loader error={ false } message={ 'Подгрузка данных...' } />;
     if (error) return <Loader error={ true } message={ `${RequestErrorMessage.FetchDataProblems}: ${error}` } />;

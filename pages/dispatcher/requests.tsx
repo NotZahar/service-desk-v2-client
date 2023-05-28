@@ -49,6 +49,7 @@ const Requests = () => {
     const [newRequestErrorsVisible, setNewRequestErrorsVisible] = useState(false);
     const [newRequestErrorMessages, setnewRequestErrorMessages] = useState<string[]>();
     const [refreshAppealsTrigger, setRefreshAppealsTrigger] = useState(false);
+    const [refreshRequestsTrigger, setRefreshRequestsTrigger] = useState(false);
 
     const openAppeal = () => {
         setAppealOpened(prev => !prev);
@@ -118,6 +119,7 @@ const Requests = () => {
             });
             
             setRefreshAppealsTrigger(prev => !prev);
+            setRefreshRequestsTrigger(prev => !prev);
             selectedAppealIdRef.current = undefined;
             setNewRequestOpened(prev => !prev);
         } catch (err) {
@@ -197,7 +199,8 @@ const Requests = () => {
                         </div>
                         <div id={ requestsCSSVariables.requestsId }>
                             <WorkWithRequests
-                                leftClickAppealHandler={ openRequest } />
+                                leftClickAppealHandler={ openRequest }
+                                refreshRequestsTrigger={ refreshRequestsTrigger } />
                             {/* {   requestOpened &&
                                 <Modal
                                     buttons={[ 

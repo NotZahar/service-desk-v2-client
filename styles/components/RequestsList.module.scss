@@ -42,6 +42,7 @@ $requests-height: 87%;
 
     .#{$priorityColumn} {
         width: request.$request-priority-width;
+        margin-left: request.$request-priority-margin-left;
     }
 
     .#{$plannedDateColumn} {

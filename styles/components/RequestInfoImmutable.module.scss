@@ -1,0 +1,103 @@
+@use '../colors';
+@use '../general';
+
+$mainLayoutId: 'mainLayoutId';
+$infoId: 'infoId';
+$descriptionId: 'descriptionId';
+$infoDataClass: 'infoDataClass';
+$fieldNameClass: 'fieldNameClass';
+
+$theme-font-size: 26px;
+$theme-margin-bottom: 15px;
+
+$main-layout-width: 100%;
+$main-layout-height: 100%;
+
+$p-font-size: 18px;
+
+$info-margin-bottom: 15px;
+
+$info-data-class: 300px;
+$info-data-class-margin-right: 15px;
+
+$field-name-margin-right: 10px;
+
+##{$mainLayoutId} {
+    display: flex;
+    flex-direction: column;
+    width: $main-layout-width;
+    height: $main-layout-height;
+
+    h2 {
+        font-size: $theme-font-size;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        margin-bottom: $theme-margin-bottom;
+    }
+
+    p {
+        font-size: $p-font-size;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    ##{$infoId} {
+        display: flex;
+        flex-direction: row;
+        height: fit-content;
+        margin-bottom: $info-margin-bottom;
+
+        .#{$infoDataClass} {
+            display: flex;
+            flex-direction: row;
+            width: $info-data-class;
+            height: fit-content;
+            margin-right: $info-data-class-margin-right;
+
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+    }
+
+    ##{descriptionId} {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+
+        p {
+            margin-right: 0;
+            margin-bottom: $field-name-margin-right;
+        }
+
+        textarea {
+            width: general.$textarea-width;
+            height: 100%;
+            background-color: colors.$main-color-light;
+            color: colors.$main-color-dark;
+            border-radius: general.$button-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+            resize: none;
+
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+    
+    .#{$fieldNameClass} {
+        color: colors.$tertiary-color-light;
+        margin-right: $field-name-margin-right;
+    }
+}
+
+:export {
+    mainLayoutId: $mainLayoutId;
+    infoId: $infoId;
+    descriptionId: $descriptionId;
+    infoDataClass: $infoDataClass;
+    fieldNameClass: $fieldNameClass;
+}

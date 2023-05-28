@@ -1,0 +1,134 @@
+@use '../colors';
+@use '../general';
+
+$mainLayoutId: 'mainLayoutId';
+$infoBlockClass: 'infoBlockClass';
+$infoDataClass: 'infoDataClass';
+$fieldNameClass: 'fieldNameClass';
+
+$main-layout-width: 100%;
+$main-layout-height: 100%;
+
+$info-data-class-margin-bottom: 12px;
+
+$info-block-class-padding: 9px 0px;
+
+$p-font-size: 18px;
+
+$select-width: 100%;
+
+$field-name-margin-bottom: 4px;
+
+##{$mainLayoutId} {
+    display: flex;
+    flex-direction: column;
+    width: $main-layout-width;
+    height: $main-layout-height;
+    font-size: $p-font-size;
+
+    .#{$infoBlockClass} {
+        width: 100%;
+        padding: $info-block-class-padding;
+        border-top: solid 2px colors.$main-border-color;
+
+        &:first-child {
+            padding-top: 0px;
+            border-top: 0;
+        }
+
+        p {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        select {
+            width: $select-width;
+            background-color: colors.$secondary-color-light;
+            color: colors.$main-color-dark;
+            border-radius: general.$input-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+        }
+
+        .#{$infoDataClass} {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: $info-data-class-margin-bottom;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .#{$fieldNameClass} {
+        color: colors.$tertiary-color-light;
+        margin-bottom: $field-name-margin-bottom;
+    }
+}
+
+//     p {
+//         font-size: $p-font-size;
+//         text-overflow: ellipsis;
+//         overflow: hidden;
+//         white-space: nowrap;
+//     }
+
+//     ##{$infoId} {
+//         display: flex;
+//         flex-direction: row;
+//         height: fit-content;
+//         margin-bottom: $info-margin-bottom;
+
+//         .#{$infoDataClass} {
+//             display: flex;
+//             flex-direction: row;
+//             width: $info-data-class;
+//             height: fit-content;
+//             margin-right: $info-data-class-margin-right;
+
+//             &:last-child {
+//                 margin-right: 0;
+//             }
+//         }
+//     }
+
+//     ##{descriptionId} {
+//         display: flex;
+//         flex-direction: column;
+//         flex-grow: 1;
+
+//         p {
+//             margin-right: 0;
+//             margin-bottom: $field-name-margin-right;
+//         }
+
+//         textarea {
+//             width: general.$textarea-width;
+//             height: 100%;
+//             background-color: colors.$main-color-light;
+//             color: colors.$main-color-dark;
+//             border-radius: general.$button-border-radius;
+//             border-style: none;
+//             padding: general.$input-padding;
+//             resize: none;
+
+//             &:focus {
+//                 outline: none;
+//             }
+//         }
+//     }
+    
+//     .#{$fieldNameClass} {
+//         color: colors.$tertiary-color-light;
+//         margin-right: $field-name-margin-right;
+//     }
+// }
+
+:export {
+    mainLayoutId: $mainLayoutId;
+    infoBlockClass: $infoBlockClass;
+    infoDataClass: $infoDataClass;
+    fieldNameClass: $fieldNameClass;
+}

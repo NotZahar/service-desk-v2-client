@@ -23,7 +23,7 @@ $request-at-work-color: colors.$main-color-light;
 $request-closed-background-color: colors.$tertiary-accept-color;
 $request-closed-color: colors.$main-color-light;
 
-$request-failed-background-color: colors.$main-border-color;
+$request-failed-background-color: colors.$main-error-color;
 $request-failed-color: colors.$main-color-light;
 
 $request-height: 40px;
@@ -38,6 +38,7 @@ $request-date-width: 150px;
 $request-status-width: 80px;
 
 $request-date-margin-left: 30px;
+$request-priority-margin-left: 30px;
 
 .#{$requestClass} {
     display: flex;
@@ -68,17 +69,13 @@ $request-date-margin-left: 30px;
         white-space: nowrap;
     }
 
-    $requestPriority: 'requestPriority';
-    $requestPlannedDate: 'requestPlannedDate';
-    $requestDate: 'requestDate';
-    $requestStatus: 'requestStatus';
-
     .#{$requestTheme} {
         width: $request-theme-width;
     }
     
     .#{$requestPriority} {
         width: $request-priority-width;
+        margin-left: $request-priority-margin-left;
     }
 
     .#{$requestPlannedDate} {
