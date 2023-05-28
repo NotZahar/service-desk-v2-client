@@ -11,7 +11,9 @@ interface DispatcherLayoutProps {
 const DispatcherLayout: React.FC<DispatcherLayoutProps> = ({ children }) => {
     const router = useRouter();
 
-    const toRequests = () => { router.push('/dispatcher/requests'); };
+    const toRequests = () => { 
+        router.push('/dispatcher/requests'); 
+    };
     const toCustomers = () => { router.push('/dispatcher/customers'); };
     const toEmployees = () => { router.push('/dispatcher/employees'); };
     const toKnowledgeBase = () => { router.push('/dispatcher/knowledge-base'); };

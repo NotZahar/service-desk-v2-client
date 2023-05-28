@@ -17,12 +17,16 @@ import requestsCSSVariables from "../../styles/pages/dispatcher-requests.module.
 import WorkWithRequests from "@/components/WorkWithRequests";
 import { useRouter } from "next/router";
 import { appealSelectionSlice } from "@/store/reducers/AppealSelectionSlice";
+import { userCustomerMessagesSlice } from "@/store/reducers/UserCustomerMessagesSlice";
+import { userInnerMessagesSlice } from "@/store/reducers/UserInnerMessagesSlice";
 
 const Requests = () => {
     const router = useRouter();
     
     const { resetAppeal } = currentAppealSlice.actions;
     const { setSelectedAppealId } = appealSelectionSlice.actions;
+    const { resetUserCustomerMessages } = userCustomerMessagesSlice.actions;
+    const { resetUserInnerMessages } = userInnerMessagesSlice.actions;
     const { currentAppeal } = useTypedSelector(state => state.currentAppealReducer);
     const { token } = useTypedSelector(state => state.authReducer);
     const { selectedAppealId } = useTypedSelector(state => state.appealSelectionReducer);
@@ -89,6 +93,8 @@ const Requests = () => {
 
     const openRequest = () => {
         dispatch(setSelectedAppealId(undefined));
+        dispatch(resetUserCustomerMessages());
+        dispatch(resetUserInnerMessages());
         router.push('/dispatcher/request-view');
     };
 
@@ -201,24 +207,6 @@ const Requests = () => {
                             <WorkWithRequests
                                 leftClickAppealHandler={ openRequest }
                                 refreshRequestsTrigger={ refreshRequestsTrigger } />
-                            {/* {   requestOpened &&
-                                <Modal
-                                    buttons={[ 
-                                        { text: 'Закрыть', onClick: cancelAppeal },
-                                        { text: 'Отклонить', id: requestsCSSVariables.denyBtnId, onClick: denyAppeal }
-                                    ]}
-                                    widthFitContent={ true } >
-                                    <AppealInfoModal appealInfo={ currentAppeal } />
-                                </Modal>
-                            }
-                            {   requestErrorsVisible &&
-                                <Modal
-                                    title="Ошибка!"
-                                    errors={ appealErrorMessages && appealErrorMessages.map((msg) => { return { text: msg }; }) }
-                                    buttons={[
-                                        { text: 'Закрыть', onClick: () => { setAppealErrorsVisible(prev => !prev) } }
-                                    ]} />
-                            } */}
                         </div>
                     </div>
                 </div>

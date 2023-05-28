@@ -6,6 +6,8 @@ import requestsReducer from "./reducers/RequestsSlice";
 import currentAppealReducer from "./reducers/CurrentAppealSlice";
 import currentRequestReducer from "./reducers/CurrentRequestSlice";
 import appealSelectionReducer from "./reducers/AppealSelectionSlice";
+import userCustomerMessagesReducer from "./reducers/UserCustomerMessagesSlice";
+import userInnerMessagesReducer from "./reducers/UserInnerMessagesSlice";
 import { persistReducer } from "redux-persist";
 import createwebStorage from "redux-persist/lib/storage/createWebStorage";
 
@@ -33,7 +35,9 @@ const persistConfig = {
         'currentAppealReducer', 
         'appealSelectionReducer',
         'requestsReducer',
-        'currentRequestReducer'
+        'currentRequestReducer',
+        'userCustomerMessagesReducer',
+        'userInnerMessagesReducer'
     ] 
 }
 
@@ -44,7 +48,9 @@ const rootReducer = combineReducers({
     currentAppealReducer,
     appealSelectionReducer,
     requestsReducer,
-    currentRequestReducer
+    currentRequestReducer,
+    userCustomerMessagesReducer,
+    userInnerMessagesReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

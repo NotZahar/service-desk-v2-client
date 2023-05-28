@@ -6,6 +6,7 @@ $mainColumnId: 'mainColumnId';
 $additionalColumnId: 'additionalColumnId';
 $requestInfoId: 'requestInfoId';
 $chatsId: 'chatsId';
+$chatClass: 'chatClass';
 
 $main-content-width: 100%;
 $main-content-height: 100%;
@@ -20,6 +21,10 @@ $chats-height: 55%;
 
 $additional-column-width: 22%;
 $additional-column-margin-left: 15px;
+
+.#{$chatClass} {
+    width: 620px;
+}
 
 ##{$mainContentId} {
     display: flex;
@@ -40,6 +45,9 @@ $additional-column-margin-left: 15px;
         }
 
         ##{$chatsId} {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
             height: $chats-height;
         }
     }
@@ -58,4 +66,5 @@ $additional-column-margin-left: 15px;
     additionalColumnId: $additionalColumnId;
     requestInfoId: $requestInfoId;
     chatsId: $chatsId;
+    chatClass: $chatClass;
 }
