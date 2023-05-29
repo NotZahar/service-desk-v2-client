@@ -1,0 +1,77 @@
+@use '../colors';
+@use '../general';
+
+$customerClass: 'customerClass';
+$customerName: 'customerName';
+$customerEmail: 'customerEmail';
+$customerPhone: 'customerPhone';
+$customerOrganization: 'customerOrganization';
+
+$customer-height: 45px;
+$customer-padding: 10px 20px;
+$customer-margin: 10px;
+$customer-font-size: 16px;
+
+$customer-name-width: 320px; 
+$customer-email-width: 80px;
+$customer-phone-width: 80px;
+$customer-organization-width: 80px;
+
+$customer-email-margin-left: 30px;
+$customer-phone-margin-left: 30px;
+
+.#{$customerClass} {
+    display: flex;
+    flex-direction: row;
+    height: $customer-height;
+    background-color: colors.$main-color-light;
+    color: colors.$main-color-dark;
+    border-style: none;
+    padding: $customer-padding;
+    margin-bottom: $customer-margin;
+    font-size: $customer-font-size;
+    transition: background-color general.$button-transition-time, color general.$button-transition-time;
+
+    &:hover {
+        cursor: pointer;
+        background-color: colors.$main-color-dark;
+        color: colors.$main-color-light;
+    }
+
+    &:first-child {
+        margin-top: $customer-margin;
+    }
+
+    p {
+        flex-grow: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    
+    .#{$customerName} {
+        width:  $customer-name-width;
+    }
+
+    .#{$customerEmail} {
+        width: $customer-email-width;
+        margin-left: $customer-email-margin-left;
+    }
+
+    .#{$customerPhone} {
+        width: $customer-phone-width;
+        margin-left: $customer-phone-margin-left;
+    }
+
+    .#{$customerOrganization} {
+        width: $customer-organization-width;
+    }
+}
+
+:export {
+    customerClass: $customerClass;
+    customerName: $customerName;
+    customerEmail: $customerEmail;
+    customerPhone: $customerPhone;
+    customerOrganization: $customerOrganization;
+}

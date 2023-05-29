@@ -3,8 +3,10 @@ import userReducer from "./reducers/UserSlice";
 import authReducer from "./reducers/AuthSlice";
 import appealsReducer from "./reducers/AppealsSlice";
 import requestsReducer from "./reducers/RequestsSlice";
+import customersReducer from "./reducers/CustomersSlice";
 import currentAppealReducer from "./reducers/CurrentAppealSlice";
 import currentRequestReducer from "./reducers/CurrentRequestSlice";
+import currentCustomerReducer from "./reducers/CurrentCustomerSlice";
 import appealSelectionReducer from "./reducers/AppealSelectionSlice";
 import userCustomerMessagesReducer from "./reducers/UserCustomerMessagesSlice";
 import userInnerMessagesReducer from "./reducers/UserInnerMessagesSlice";
@@ -37,7 +39,9 @@ const persistConfig = {
         'requestsReducer',
         'currentRequestReducer',
         'userCustomerMessagesReducer',
-        'userInnerMessagesReducer'
+        'userInnerMessagesReducer',
+        'customersReducer',
+        'currentCustomerReducer'
     ] 
 }
 
@@ -50,7 +54,9 @@ const rootReducer = combineReducers({
     requestsReducer,
     currentRequestReducer,
     userCustomerMessagesReducer,
-    userInnerMessagesReducer
+    userInnerMessagesReducer,
+    customersReducer,
+    currentCustomerReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -1,0 +1,92 @@
+@use '../colors';
+@use '../general';
+
+$mainContentId: 'mainContentId'; 
+$topPanelId: 'topPanelId';
+$newCustomerBtnId: 'newCustomerBtnId';
+$customersId: 'customersId'; 
+$cancelBtnId: 'cancelBtnId';
+$changeBtnId: 'changeBtnId';
+
+$main-content-width: 100%;
+$main-content-height: 100%;
+
+$top-panel-padding: 15px;
+$top-panel-width: 100%;
+$top-panel-height: 10%;
+
+$new-customer-btn-padding: 10px;
+$new-customer-btn-font-size: 25px; 
+$new-customer-margin-right: 10px; 
+
+$customers-width: 100%;
+$customers-height: 100%;
+
+##{$mainContentId} {
+    display: flex;
+    flex-direction: column;
+    width: $main-content-width;
+    height: $main-content-height;
+
+    ##{$topPanelId} {
+        display: flex;
+        flex-direction: row;
+        width: $top-panel-width;
+        height: $top-panel-height;
+        background-color: colors.$main-border-color;
+        padding: $top-panel-padding;
+        overflow: hidden;
+
+        ##{$newCustomerBtnId} {
+            width: fit-content;
+            height: fit-content;
+            background-color: colors.$secondary-accept-color;
+            color: colors.$secondary-color-light;
+            border-radius: general.$button-border-radius;
+            margin-left: $new-customer-margin-right;
+            padding: $new-customer-btn-padding;
+            font-size: $new-customer-btn-font-size;
+            box-shadow: 0px 2px colors.$main-color-dark;
+            transition: background-color general.$button-transition-time;
+
+            &:hover {
+                cursor: pointer;
+                background-color: colors.$main-color-dark;
+            }
+        }
+    }
+ 
+    ##{$customersId} {
+        width: $customers-width;
+        height: $customers-height;
+        border-right: solid 2px colors.$main-border-color;
+    }
+
+    ##{$cancelBtnId} {
+        background-color: colors.$main-color-light !important;
+        color: colors.$main-color-dark !important;
+
+        &:hover {
+            background-color: colors.$main-color-dark !important;
+            color: colors.$main-color-light !important;
+        }
+    }
+
+    ##{$changeBtnId} {
+        background-color: colors.$main-error-color !important;
+        color: colors.$main-color-light !important;
+
+        &:hover {
+            background-color: colors.$main-color-dark !important;
+        }
+    }
+}
+
+:export {
+    mainContentId: $mainContentId; 
+    topPanelId: $topPanelId;
+    newCustomerBtnId: $newCustomerBtnId;
+    customersId: $customersId; 
+    cancelBtnId: $cancelBtnId;
+    changeBtnId: $changeBtnId;
+}

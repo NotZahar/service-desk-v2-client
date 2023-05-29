@@ -1,0 +1,72 @@
+@use '../colors';
+@use '../general';
+@use '../components/Customer.module.scss' as customer;
+
+$customersId: 'customersId';
+$columnNamesId: 'columnNamesId';
+$nameColumn: 'nameColumn';
+$emailColumn: 'emailColumn';
+$phoneNumberColumn: 'phoneNumberColumn';
+$organizationColumn: 'organizationColumn';
+
+$column-names-width: 100%;
+$column-names-height: fit-content;
+$column-names-padding: 10px 20px;
+$column-names-font-size: 18px;
+
+$customers-width: 100%;
+$customers-height: 100%;
+
+##{$columnNamesId} {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: $column-names-width;
+    height: $column-names-height;
+    background-color: colors.$main-border-color;
+    color: colors.$main-color-light;
+    padding: $column-names-padding;
+    font-size: $column-names-font-size;
+
+    p {
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .#{$nameColumn} {
+        width: customer.$customer-name-width;
+    }
+
+    .#{$emailColumn} {
+        width: customer.$customer-email-width;
+        margin-left: customer.$customer-email-margin-left;
+    }
+
+    .#{$phoneNumberColumn} {
+        width: customer.$customer-phone-width;
+        margin-left: customer.$customer-phone-margin-left;
+    }
+
+    .#{$organizationColumn} {
+        width: customer.$customer-organization-width;
+    }
+}
+
+##{$customersId} {
+    display: flex;
+    flex-direction: column;
+    width: $customers-width;
+    height: $customers-height;
+    overflow-y: scroll;
+}
+
+:export {
+    customersId: $customersId;
+    columnNamesId: $columnNamesId;
+    nameColumn: $nameColumn;
+    emailColumn: $emailColumn;
+    phoneNumberColumn: $phoneNumberColumn;
+    organizationColumn: $organizationColumn;
+}

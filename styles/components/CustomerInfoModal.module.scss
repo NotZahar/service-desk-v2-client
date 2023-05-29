@@ -1,0 +1,51 @@
+@use '../colors';
+@use '../general';
+
+$customerInfoId: 'customerInfoId';
+$inputDataClass: 'inputDataClass';
+
+$customer-info-font-size: 18px;
+$customer-info-margin-bottom: 15px;
+$customer-p-margin-bottom: 4px;
+
+$input-data-class-width: 400px;
+$input-data-class-margin-bottom: 8px;
+
+##{$customerInfoId} {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    font-size: $customer-info-font-size;
+    margin-bottom: $customer-info-margin-bottom;
+
+    p {
+        margin-bottom: $customer-p-margin-bottom;
+    }
+
+    input {
+        border-radius: general.$button-border-radius;
+        border-style: none;
+        padding: general.$input-padding;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .#{$inputDataClass} {
+        display: flex;
+        flex-direction: column;
+        width: $input-data-class-width;
+        margin-bottom: $input-data-class-margin-bottom;
+
+        &:last-child {
+            margin-bottom: 0px;
+        }
+    }
+}
+
+:export {
+    customerInfoId: $customerInfoId;
+    inputDataClass: $inputDataClass;
+}

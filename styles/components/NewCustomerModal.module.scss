@@ -1,0 +1,59 @@
+@use '../colors';
+@use '../general';
+
+$newCustomerId: 'newCustomerId';
+$newCustomerInputs: 'newCustomerInputs';
+$inputDataClass: 'inputDataClass';
+
+$new-customer-font-size: 18px;
+$new-customer-margin-bottom: 15px;
+$new-customer-p-margin-bottom: 4px;
+
+$input-data-class-width: 400px;
+$input-data-class-margin-bottom: 8px;
+
+##{$newCustomerId} {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    font-size: $new-customer-font-size;
+    margin-bottom: $new-customer-margin-bottom;
+
+    p {
+        margin-bottom: $new-customer-p-margin-bottom;
+    }
+
+    ##{$newCustomerInputs} {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: $new-customer-margin-bottom;
+
+        input {
+            border-radius: general.$button-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+
+            &:focus {
+                outline: solid general.$input-focus-outline-width colors.$main-accept-color;
+            }
+        }
+
+        .#{$inputDataClass} {
+            display: flex;
+            flex-direction: column;
+            width: $input-data-class-width;
+            margin-bottom: $input-data-class-margin-bottom;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+
+:export {
+    newCustomerId: $newCustomerId;
+    newCustomerInputs: $newCustomerInputs;
+    inputDataClass: $inputDataClass;
+}
