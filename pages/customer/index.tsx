@@ -1,4 +1,4 @@
-import DispatcherLayout from "@/layouts/DispatcherLayout";
+import CustomerLayout from "@/layouts/CustomerLayout";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -6,14 +6,14 @@ const Index = () => {
     const router = useRouter();
     
     useEffect(() => {
-        router.push('/dispatcher/requests');
+        router.push('/customer/requests');
     }, []);
 
     return (
         <>
-            <DispatcherLayout>
+            <CustomerLayout>
                 
-            </DispatcherLayout>
+            </CustomerLayout>
         </>
     );
 };

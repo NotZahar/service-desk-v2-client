@@ -38,6 +38,8 @@ $requests-height: 100%;
     ##{$topPanelId} {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         width: $top-panel-width;
         height: $top-panel-height;
         background-color: colors.$main-border-color;

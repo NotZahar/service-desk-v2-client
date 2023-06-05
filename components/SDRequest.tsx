@@ -20,9 +20,10 @@ const statusTypeToCSS = (statusName: string): string => {
 interface SDRequestProps {
     request: IRequest;
     leftClickHandler: Function;
+    notForCustomer?: boolean;
 }
 
-const SDRequest: React.FC<SDRequestProps> = ({ request, leftClickHandler }) => {
+const SDRequest: React.FC<SDRequestProps> = ({ request, leftClickHandler, notForCustomer }) => {
     const { setRequest } = currentRequestSlice.actions;
     const dispatch = useTypedDispatch();
     
@@ -40,8 +41,8 @@ const SDRequest: React.FC<SDRequestProps> = ({ request, leftClickHandler }) => {
         <>  
             <div id={ request.id } className={ defaultClassName } onClick={ onLeftClickHandler } >
                 <p className={ requestCSSVariables.requestTheme } title={ request.theme } >{ request.theme }</p>
-                <p className={ requestCSSVariables.requestPriority } title={ request.priority_name } >{ request.priority_name }</p>
-                <p className={ requestCSSVariables.requestPlannedDate } title={ plannedDateString } >{ plannedDateString }</p>
+                { notForCustomer && <p className={ requestCSSVariables.requestPriority } title={ request.priority_name } >{ request.priority_name }</p> }
+                { notForCustomer && <p className={ requestCSSVariables.requestPlannedDate } title={ plannedDateString } >{ plannedDateString }</p> }
                 <p className={ requestCSSVariables.requestDate } title={ dateString } >{ dateString }</p>
                 <p className={ requestCSSVariables.requestStatus } title={ request.status_name } >{ request.status_name }</p>
             </div>  

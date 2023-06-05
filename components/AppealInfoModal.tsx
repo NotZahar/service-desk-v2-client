@@ -8,7 +8,6 @@ interface AppealInfoModalProps {
 
 const AppealInfoModal: React.FC<AppealInfoModalProps> = ({ appealInfo }) => {
     const dateString = (appealInfo?.date ? new Date(appealInfo?.date).toLocaleString('ru-RU') : AppealErrorMessage.DataProblem);
-    const customerData = `${appealInfo?.customer_name} ${appealInfo?.customer_email}`;
     const fileName = appealInfo?.file || 'Отсутствует';
 
     return (
@@ -23,10 +22,6 @@ const AppealInfoModal: React.FC<AppealInfoModalProps> = ({ appealInfo }) => {
                         <div className={ appealInfoModalCSSVariables.inputDataClass }>
                             <p>Статус</p>
                             <input defaultValue={ appealInfo?.status_name } type="text" readOnly />
-                        </div>
-                        <div className={ appealInfoModalCSSVariables.inputDataClass }>
-                            <p>Клиент</p>
-                            <input title={ customerData } defaultValue={ customerData } type="text" readOnly />
                         </div>
                     </div>
                     <div className={ appealInfoModalCSSVariables.columnClass }>

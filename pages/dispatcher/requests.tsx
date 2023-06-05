@@ -51,7 +51,7 @@ const Requests = () => {
     const [appealErrorsVisible, setAppealErrorsVisible] = useState(false);
     const [appealErrorMessages, setAppealErrorMessages] = useState<string[]>();
     const [newRequestErrorsVisible, setNewRequestErrorsVisible] = useState(false);
-    const [newRequestErrorMessages, setnewRequestErrorMessages] = useState<string[]>();
+    const [newRequestErrorMessages, setNewRequestErrorMessages] = useState<string[]>();
     const [refreshAppealsTrigger, setRefreshAppealsTrigger] = useState(false);
     const [refreshRequestsTrigger, setRefreshRequestsTrigger] = useState(false);
 
@@ -129,7 +129,7 @@ const Requests = () => {
             selectedAppealIdRef.current = undefined;
             setNewRequestOpened(prev => !prev);
         } catch (err) {
-            setnewRequestErrorMessages(err instanceof AxiosError ? 
+            setNewRequestErrorMessages(err instanceof AxiosError ? 
                 (err.response ? toStringArray(err.response.data) : [ err.message ]) 
                 : undefined);
             setNewRequestErrorsVisible(true);

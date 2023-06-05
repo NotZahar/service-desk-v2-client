@@ -41,7 +41,7 @@ const Index = () => {
                     role: response.data.role,
                     email: response.data.email
                 }));
-                router.push('/customer-portal');
+                router.push('/customer');
                 break;
             } case 'employee': {
                 const response = await axios.post(`${baseServerPath}/auth/login-employee`, {

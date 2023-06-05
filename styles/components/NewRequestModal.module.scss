@@ -6,6 +6,7 @@ $newRequestInputs: 'newRequestInputs';
 $newRequestTextarea: 'newRequestTextarea'; 
 $columnClass: 'columnClass';
 $inputDataClass: 'inputDataClass';
+$inputDataClassWide: 'inputDataClassWide';
 
 $new-request-font-size: 18px;
 $new-request-margin-bottom: 15px;
@@ -14,6 +15,7 @@ $new-request-p-margin-bottom: 4px;
 $column-class-margin-right: 15px;
 
 $input-data-class-width: 300px;
+$input-data-class-width-wide: 500px;
 $input-data-class-margin-bottom: 8px;
 
 $new-request-textarea-width: 100%;
@@ -99,6 +101,10 @@ $select-font-size: 19px;
                     font-size: $select-font-size;
                 }
             }
+
+            .#{$inputDataClassWide} {
+                width: $input-data-class-width-wide;
+            }
         }
     }
 
@@ -129,4 +135,5 @@ $select-font-size: 19px;
     newRequestTextarea: $newRequestTextarea;
     columnClass: $columnClass;
     inputDataClass: $inputDataClass;
+    inputDataClassWide: $inputDataClassWide;
 }

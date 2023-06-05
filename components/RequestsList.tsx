@@ -6,9 +6,10 @@ import SDRequest from "./SDRequest";
 
 interface RequestsListProps {
     leftClickAppealHandler: Function;
+    notForCustomer?: boolean; 
 }
 
-const RequestsList: React.FC<RequestsListProps> = ({ leftClickAppealHandler }) => {
+const RequestsList: React.FC<RequestsListProps> = ({ leftClickAppealHandler, notForCustomer = true }) => {
     const { requests } = useTypedSelector(state => state.requestsReducer);
 
     let atWorkRequests: IRequest[] = [];
@@ -36,8 +37,8 @@ const RequestsList: React.FC<RequestsListProps> = ({ leftClickAppealHandler }) =
         <>  
             <div id={ requestsListCSSVariables.columnNamesId }>
                 <p className={ requestsListCSSVariables.themeColumn } >Тема</p>
-                <p className={ requestsListCSSVariables.priorityColumn } >Приоритет</p>
-                <p className={ requestsListCSSVariables.plannedDateColumn } >Запланированная дата</p>     
+                { notForCustomer && <p className={ requestsListCSSVariables.priorityColumn } >Приоритет</p> }
+                { notForCustomer && <p className={ requestsListCSSVariables.plannedDateColumn } >Запланированная дата</p> }     
                 <p className={ requestsListCSSVariables.dateColumn } >Дата регистрации</p>     
                 <p className={ requestsListCSSVariables.statusColumn } >Статус</p>     
             </div>
@@ -47,7 +48,8 @@ const RequestsList: React.FC<RequestsListProps> = ({ leftClickAppealHandler }) =
                         return <SDRequest 
                             request={ elem } 
                             leftClickHandler={ leftClickAppealHandler }
-                            key={ elem.id } />;
+                            key={ elem.id }
+                            notForCustomer={ notForCustomer } />;
                     }) 
                 }
 
@@ -55,7 +57,8 @@ const RequestsList: React.FC<RequestsListProps> = ({ leftClickAppealHandler }) =
                         return <SDRequest 
                             request={ elem } 
                             leftClickHandler={ leftClickAppealHandler } 
-                            key={ elem.id } />;
+                            key={ elem.id }
+                            notForCustomer={ notForCustomer } />;
                     }) 
                 }
 
@@ -63,7 +66,8 @@ const RequestsList: React.FC<RequestsListProps> = ({ leftClickAppealHandler }) =
                         return <SDRequest 
                             request={ elem } 
                             leftClickHandler={ leftClickAppealHandler } 
-                            key={ elem.id } />;
+                            key={ elem.id }
+                            notForCustomer={ notForCustomer } />;
                     }) 
                 }
             </div>
