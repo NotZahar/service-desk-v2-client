@@ -1,0 +1,72 @@
+@use '../colors';
+@use '../general';
+@use '../components/Employee.module.scss' as employee;
+
+$employeesId: 'employeesId';
+$columnNamesId: 'columnNamesId';
+$nameColumn: 'nameColumn';
+$emailColumn: 'emailColumn';
+$appointmentColumn: 'appointmentColumn';
+$departmentColumn: 'departmentColumn';
+
+$column-names-width: 100%;
+$column-names-height: fit-content;
+$column-names-padding: 10px 20px;
+$column-names-font-size: 18px;
+
+$employees-width: 100%;
+$employees-height: 100%;
+
+##{$columnNamesId} {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: $column-names-width;
+    height: $column-names-height;
+    background-color: colors.$main-border-color;
+    color: colors.$main-color-light;
+    padding: $column-names-padding;
+    font-size: $column-names-font-size;
+
+    p {
+        flex-grow: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .#{$nameColumn} {
+        width: employee.$employee-name-width;
+    }
+
+    .#{$emailColumn} {
+        width: employee.$employee-email-width;
+        margin-left: employee.$employee-email-margin-left;
+    }
+
+    .#{$appointmentColumn} {
+        width: employee.$employee-appointment-width;
+        margin-left: employee.$employee-appointment-margin-left;
+    }
+
+    .#{$departmentColumn} {
+        width: employee.$employee-department-width;
+    }
+}
+
+##{$employeesId} {
+    display: flex;
+    flex-direction: column;
+    width: $employees-width;
+    height: $employees-height;
+    overflow-y: scroll;
+}
+
+:export {
+    employeesId: $employeesId;
+    columnNamesId: $columnNamesId;
+    nameColumn: $nameColumn;
+    emailColumn: $emailColumn;
+    appointmentColumn: $appointmentColumn;
+    departmentColumn: $departmentColumn;
+}

@@ -1,0 +1,72 @@
+@use '../colors';
+@use '../general';
+
+$newEmployeeId: 'newEmployeeId';
+$newEmployeeInputs: 'newEmployeeInputs';
+$inputDataClass: 'inputDataClass';
+
+$new-employee-font-size: 18px;
+$new-employee-margin-bottom: 15px;
+$new-employee-p-margin-bottom: 4px;
+
+$input-data-class-width: 400px;
+$input-data-class-margin-bottom: 8px;
+
+$select-width: 100%;
+$select-font-size: 19px;
+
+##{$newEmployeeId} {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    height: fit-content;
+    font-size: $new-employee-font-size;
+    margin-bottom: $new-employee-margin-bottom;
+
+    p {
+        margin-bottom: $new-employee-p-margin-bottom;
+    }
+
+    ##{$newEmployeeInputs} {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: $new-employee-margin-bottom;
+
+        input {
+            border-radius: general.$button-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+
+            &:focus {
+                outline: solid general.$input-focus-outline-width colors.$main-accept-color;
+            }
+        }
+
+        select {
+            width: $select-width;
+            background-color: colors.$secondary-color-light;
+            color: colors.$main-color-dark;
+            border-radius: general.$input-border-radius;
+            border-style: none;
+            padding: general.$input-padding;
+            font-size: $select-font-size;
+        }
+
+        .#{$inputDataClass} {
+            display: flex;
+            flex-direction: column;
+            width: $input-data-class-width;
+            margin-bottom: $input-data-class-margin-bottom;
+
+            &:last-child {
+                margin-bottom: 0px;
+            }
+        }
+    }
+}
+
+:export {
+    newEmployeeId: $newEmployeeId;
+    newEmployeeInputs: $newEmployeeInputs;
+    inputDataClass: $inputDataClass;
+}

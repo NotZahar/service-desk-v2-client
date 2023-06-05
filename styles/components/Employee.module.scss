@@ -1,0 +1,78 @@
+@use '../colors';
+@use '../general';
+
+$employeeClass: 'employeeClass';
+$employeeName: 'employeeName';
+$employeeEmail: 'employeeEmail';
+$employeeAppointment: 'employeeAppointment';
+$employeeDepartment: 'employeeDepartment';
+
+$employee-height: 45px;
+$employee-padding: 10px 20px;
+$employee-margin: 10px;
+$employee-font-size: 16px;
+
+$employee-name-width: 320px; 
+$employee-email-width: 80px;
+$employee-appointment-width: 80px;
+$employee-department-width: 80px;
+
+$employee-email-margin-left: 30px;
+$employee-appointment-margin-left: 30px;
+
+.#{$employeeClass} {
+    display: flex;
+    flex-direction: row;
+    height: $employee-height;
+    background-color: colors.$main-color-light;
+    color: colors.$main-color-dark;
+    border-style: none;
+    padding: $employee-padding;
+    margin-bottom: $employee-margin;
+    font-size: $employee-font-size;
+    transition: background-color general.$button-transition-time, color general.$button-transition-time;
+
+    &:hover {
+        cursor: pointer;
+        background-color: colors.$main-color-dark;
+        color: colors.$main-color-light;
+    }
+
+    &:first-child {
+        margin-top: $employee-margin;
+    }
+
+    p {
+        flex-grow: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    
+    .#{$employeeName} {
+        width:  $employee-name-width;
+    }
+
+    .#{$employeeEmail} {
+        width: $employee-email-width;
+        margin-left: $employee-email-margin-left;
+    }
+    
+    .#{$employeeAppointment} {
+        width: $employee-appointment-width;
+        margin-left: $employee-appointment-margin-left;
+    }
+
+    .#{$employeeDepartment} {
+        width: $employee-department-width;
+    }
+}
+
+:export {
+    employeeClass: $employeeClass;
+    employeeName: $employeeName;
+    employeeEmail: $employeeEmail;
+    employeeAppointment: $employeeAppointment;
+    employeeDepartment: $employeeDepartment;
+}
+

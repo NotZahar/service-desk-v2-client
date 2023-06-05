@@ -42,15 +42,15 @@ const NewCustomerModal: React.FC<NewCustomerModalProps> = ({
                         <input ref={ secondNameInputRef } type="text" />
                     </div>
                     <div className={ newCustomerModalCSSVariables.inputDataClass }>
-                        <p>Отчество</p>
+                        <p>Отчество (необязательно)</p>
                         <input ref={ patronymicInputRef } type="text" />
                     </div>
                     <div className={ newCustomerModalCSSVariables.inputDataClass }>
-                        <p>Номер телефона</p>
+                        <p>Номер телефона (необязательно)</p>
                         <input ref={ phoneNumberInputRef } type="text" />
                     </div>
                     <div className={ newCustomerModalCSSVariables.inputDataClass }>
-                        <p>Организация</p>
+                        <p>Организация (необязательно)</p>
                         <input ref={ organizationInputRef } type="text" />
                     </div>
                 </div>

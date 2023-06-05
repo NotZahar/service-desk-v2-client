@@ -1,6 +1,6 @@
 import { useTypedSelector } from "@/hooks/redux";
 import customersListCSSVariables from "../styles/components/CustomersList.module.scss";
-import Customer from "./Customes";
+import Customer from "./Customer";
 
 interface CustomersListProps {
     leftClickAppealHandler: Function;
