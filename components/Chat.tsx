@@ -21,7 +21,7 @@ const Chat: React.FC<ChatProps> = ({ chatName, textfieldRef, updateMessages, sen
     const chatBodyRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        chatBodyRef.current?.scrollIntoView();
+        chatBodyRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, [updateMessages]);
 
     return (
