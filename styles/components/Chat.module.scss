@@ -30,7 +30,7 @@ $attachImgHeight: 25;
 
     ##{$chatBodyId} {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         height: 100%;
         padding: 10px 0;
         border-top: solid 2px colors.$main-border-color;
@@ -43,12 +43,12 @@ $attachImgHeight: 25;
             flex-direction: column;
             width: 100%;
             padding: general.$input-padding;
-            margin-top: 10px;
+            margin-bottom: 10px;
             border-radius: general.$button-border-radius;
             background-color: colors.$main-border-color;
 
-            &:last-child {
-                margin-top: 0;
+            &:nth-last-child(-n + 2) {
+                margin-bottom: 0;
             }
 
             .#{$metaInfoClass} {

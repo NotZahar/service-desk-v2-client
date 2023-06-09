@@ -1,0 +1,84 @@
+@use '../colors';
+@use '../general';
+
+$mainContentId: 'mainContentId'; 
+$mainColumnId: 'mainColumnId';
+$backPanelId: 'backPanelId';
+$requestInfoId: 'requestInfoId';
+$chatsId: 'chatsId';
+$chatClass: 'chatClass';
+
+$main-content-width: 100%;
+$main-content-height: 100%;
+$main-content-padding: 15px;
+
+$main-column-width: 100%;
+
+$back-panel-height: 6%;
+
+$request-info-height: 10%;
+$request-info-margin-bottom: 15px;
+
+$chats-height: 80%;
+
+.#{$chatClass} {
+    width: 90%;
+}
+
+##{$mainContentId} {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: $main-content-width;
+    height: $main-content-height;
+    padding: $main-content-padding;
+
+    ##{$mainColumnId} {
+        display: flex;
+        flex-direction: column;
+        width: $main-column-width;
+
+        ##{$backPanelId} {
+            display: flex;
+            // width: fit-content;
+            height: $back-panel-height;
+            justify-content: center;
+            align-items: center ;
+            border-radius: general.$button-border-radius;
+            padding: general.$button-padding;
+            background-color: colors.$main-color-dark;
+            margin-bottom: $request-info-margin-bottom;
+            transition: background-color general.$button-transition-time;
+
+            p {
+                font-size: 30px;
+            }
+
+            &:hover {
+                cursor: pointer;
+                background-color: colors.$secondary-accept-color;
+            }
+        }
+
+        ##{$requestInfoId} {
+            height: $request-info-height;
+            margin-bottom: $request-info-margin-bottom;
+        }
+
+        ##{$chatsId} {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            height: $chats-height;
+        }
+    }
+}
+
+:export {
+    mainContentId: $mainContentId;
+    mainColumnId: $mainColumnId; 
+    requestInfoId: $requestInfoId;
+    backPanelId: $backPanelId;
+    chatsId: $chatsId;
+    chatClass: $chatClass;
+}

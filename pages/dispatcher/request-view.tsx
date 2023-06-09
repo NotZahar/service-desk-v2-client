@@ -3,6 +3,7 @@ import Modal from "@/components/Modal";
 import RequestInfoImmutable from "@/components/RequestInfoImmutable";
 import RequestInfoMutable from "@/components/RequestInfoMutable";
 import { baseServerPath } from "@/helpers/paths";
+import { RequestStatus } from "@/helpers/request-statuses";
 import { toStringArray } from "@/helpers/transform";
 import { updateChatIntervalTime } from "@/helpers/update-data";
 import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
@@ -27,11 +28,15 @@ const RequestView: React.FC<RequestViewProps> = () => {
 
     const [errorsVisible, setErrorsVisible] = useState(false);
     const [errorsMessages, setErrorsMessages] = useState<string[]>();
+    const [updateCustomerMessages, setUpdateCustomerMessages] = useState<boolean>(false);
+    const [updateInnerMessages, setUpdateInnerMessages] = useState<boolean>(false);
 
     const textfieldCustomerRef = useRef<HTMLTextAreaElement>(null); 
-    const textfieldInnerRef = useRef<HTMLTextAreaElement>(null); 
+    const textfieldInnerRef = useRef<HTMLTextAreaElement>(null);
 
     const sendCustomerHandler = async () => {
+        if (currentRequest?.status_name !== RequestStatus.AT_WORK) return;
+
         try {
             await axios.post(`${baseServerPath}/user-customer-messages`, {                
                 file: null,
@@ -56,6 +61,8 @@ const RequestView: React.FC<RequestViewProps> = () => {
     };
 
     const sendInnerHandler = async () => {
+        if (currentRequest?.status_name !== RequestStatus.AT_WORK) return;
+
         try {
             await axios.post(`${baseServerPath}/user-inner-messages`, {                
                 file: null,
@@ -85,6 +92,7 @@ const RequestView: React.FC<RequestViewProps> = () => {
         .then(res => res.json())
         .then(data => {
             dispatch(setUserCustomerMessagesSuccess(data));
+            setUpdateCustomerMessages(prev => !prev);
         })
         .catch(err => {
             dispatch(setUserCustomerMessagesError(String(err)));
@@ -98,6 +106,7 @@ const RequestView: React.FC<RequestViewProps> = () => {
         .then(res => res.json())
         .then(data => {
             dispatch(setUserInnerMessagesSuccess(data));
+            setUpdateInnerMessages(prev => !prev);
         })
         .catch(err => {
             dispatch(setUserInnerMessagesError(String(err)));
@@ -125,10 +134,20 @@ const RequestView: React.FC<RequestViewProps> = () => {
                         </div>
                         <div id={ requestViewCSSVariables.chatsId }>
                             <div className={ requestViewCSSVariables.chatClass } >
-                               <Chat type={ 'customer' } textfieldRef={ textfieldCustomerRef } chatName={ 'Внешний чат' } sendHandler={ sendCustomerHandler } />
+                                <Chat 
+                                    type={ 'customer' } 
+                                    textfieldRef={ textfieldCustomerRef } 
+                                    chatName={ 'Внешний чат' } 
+                                    sendHandler={ sendCustomerHandler }
+                                    updateMessages={ updateCustomerMessages } />
                             </div>
                             <div className={ requestViewCSSVariables.chatClass }>
-                                <Chat type={ 'inner' } textfieldRef={ textfieldInnerRef } chatName={ 'Внутренний чат' } sendHandler={ sendInnerHandler } />
+                                <Chat 
+                                    type={ 'inner' } 
+                                    textfieldRef={ textfieldInnerRef } 
+                                    chatName={ 'Внутренний чат' } 
+                                    sendHandler={ sendInnerHandler }
+                                    updateMessages={ updateInnerMessages } />
                             </div>
                         </div>
                     </div>

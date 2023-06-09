@@ -1,6 +1,6 @@
 import { useTypedSelector } from "@/hooks/redux";
 import Image from "next/image";
-import { MouseEventHandler, RefObject } from "react";
+import { MouseEventHandler, RefObject, useEffect, useRef } from "react";
 import chatCSSVariables from "../styles/components/Chat.module.scss";
 
 export type chatType = 'customer' | 'inner';
@@ -9,21 +9,28 @@ interface ChatProps {
     chatName: string;
     type: chatType;
     textfieldRef: RefObject<HTMLTextAreaElement>;
+    updateMessages: boolean;
     sendHandler?: MouseEventHandler<HTMLImageElement>;
     attachFileHandler?: MouseEventHandler<HTMLImageElement>;
 }
 
-const Chat: React.FC<ChatProps> = ({ chatName, textfieldRef, sendHandler, attachFileHandler, type }) => {         
+const Chat: React.FC<ChatProps> = ({ chatName, textfieldRef, updateMessages, sendHandler, attachFileHandler, type }) => {         
     const { userCustomerMessages } = useTypedSelector(state => state.userCustomerMessagesReducer);
     const { userInnerMessages } = useTypedSelector(state => state.userInnerMessagesReducer);
     
+    const chatBodyRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        chatBodyRef.current?.scrollIntoView();
+    }, [updateMessages]);
+
     return (
         <>
             <div id={ chatCSSVariables.mainLayoutId }>
                 <div id={ chatCSSVariables.chatNameId }>
                     <p>{ chatName }</p>
                 </div>
-                <div id={ chatCSSVariables.chatBodyId }>
+                <div id={ chatCSSVariables.chatBodyId } >
                     {   type === 'customer' && Array.isArray(userCustomerMessages) &&
                         userCustomerMessages.map((message) => {
                             return (
@@ -52,6 +59,7 @@ const Chat: React.FC<ChatProps> = ({ chatName, textfieldRef, sendHandler, attach
                             );
                         })
                     }
+                    <div ref={ chatBodyRef }></div>
                 </div>
                 <div id={ chatCSSVariables.inputMessageId }>
                     <textarea ref={ textfieldRef } placeholder="Введите сообщение..."></textarea>
