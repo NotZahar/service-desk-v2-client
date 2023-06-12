@@ -1,16 +1,17 @@
 import Chat from "@/components/Chat";
 import Modal from "@/components/Modal";
 import RequestInfoImmutable from "@/components/RequestInfoImmutable";
-import RequestInfoMutable from "@/components/RequestInfoMutable";
+import RequestInfoMutableSpec from "@/components/RequestInfoMutableSpec";
 import { baseServerPath } from "@/helpers/paths";
 import { RequestStatus } from "@/helpers/request-statuses";
 import { toStringArray } from "@/helpers/transform";
 import { updateChatIntervalTime } from "@/helpers/update-data";
 import { useTypedDispatch, useTypedSelector } from "@/hooks/redux";
-import DispatcherLayout from "@/layouts/DispatcherLayout";
-import { userCustomerMessagesSlice } from "@/store/reducers/UserCustomerMessagesSlice";
+import SpecialistLayout from "@/layouts/SpecialistLayout";
+import { currentRequestSlice } from "@/store/reducers/CurrentRequestSlice";
 import { userInnerMessagesSlice } from "@/store/reducers/UserInnerMessagesSlice";
 import axios, { AxiosError } from "axios";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import requestViewCSSVariables from "../../styles/pages/dispatcher-request-view.module.scss";
 
@@ -19,7 +20,9 @@ interface RequestViewProps {
 }
 
 const RequestView: React.FC<RequestViewProps> = () => {
-    const { setUserCustomerMessagesSuccess, setUserCustomerMessagesError } = userCustomerMessagesSlice.actions;
+    const router = useRouter();
+    
+    const { setRequest } = currentRequestSlice.actions;
     const { setUserInnerMessagesSuccess, setUserInnerMessagesError } = userInnerMessagesSlice.actions;
     const { currentRequest } = useTypedSelector(state => state.currentRequestReducer);
     const { token } = useTypedSelector(state => state.authReducer);
@@ -28,38 +31,10 @@ const RequestView: React.FC<RequestViewProps> = () => {
 
     const [errorsVisible, setErrorsVisible] = useState(false);
     const [errorsMessages, setErrorsMessages] = useState<string[]>();
-    const [updateCustomerMessages, setUpdateCustomerMessages] = useState<boolean>(false);
     const [updateInnerMessages, setUpdateInnerMessages] = useState<boolean>(false);
 
-    const textfieldCustomerRef = useRef<HTMLTextAreaElement>(null); 
     const textfieldInnerRef = useRef<HTMLTextAreaElement>(null);
 
-    const sendCustomerHandler = async () => {
-        if (currentRequest?.status_name !== RequestStatus.AT_WORK) return;
-        if (!textfieldCustomerRef.current?.value) return;
-
-        try {
-            await axios.post(`${baseServerPath}/user-customer-messages`, {                
-                file: null,
-                text: textfieldCustomerRef.current?.value,
-                employee_id: user?.id,
-                customer_id: null,
-                request_id: currentRequest?.id
-            }, {
-                headers: {
-                    Authorization: token
-                }
-            });
-
-            fetchCustomerMessages();
-            if (textfieldCustomerRef.current) textfieldCustomerRef.current.value = '';
-        } catch (err) {
-            setErrorsMessages(err instanceof AxiosError ? 
-                (err.response ? toStringArray(err.response.data) : [ err.message ]) 
-                : undefined);
-            setErrorsVisible(prev => !prev);
-        }
-    };
 
     const sendInnerHandler = async () => {
         if (currentRequest?.status_name !== RequestStatus.AT_WORK) return;
@@ -87,17 +62,18 @@ const RequestView: React.FC<RequestViewProps> = () => {
         }
     };
 
-    const fetchCustomerMessages = () => {
-        fetch(`${baseServerPath}/user-customer-messages/${currentRequest?.id}`, {
+    const fetchRequestData = () => {
+        fetch(`${baseServerPath}/requests/specialist/one?spec_id=${user?.id}&req_id=${currentRequest?.id}`, {
             headers: { Authorization: token || '' }
         })
         .then(res => res.json())
         .then(data => {
-            dispatch(setUserCustomerMessagesSuccess(data));
-            setUpdateCustomerMessages(prev => !prev);
+            if (Array.isArray(data) && data.length === 0) { router.push('/specialist/requests'); return; }
+            dispatch(setRequest(data[0]));
         })
         .catch(err => {
-            dispatch(setUserCustomerMessagesError(String(err)));
+            setErrorsMessages([ String(err) ]);
+            setErrorsVisible(prev => !prev);
         });
     };
 
@@ -114,13 +90,13 @@ const RequestView: React.FC<RequestViewProps> = () => {
             dispatch(setUserInnerMessagesError(String(err)));
         });
     };
-    
+
     useEffect(() => {
-        fetchCustomerMessages();
+        fetchRequestData();
         fetchInnerMessages();
 
-        const interval = setInterval(() => { 
-            fetchCustomerMessages();
+        const interval = setInterval(() => {
+            fetchRequestData();
             fetchInnerMessages();
         }, updateChatIntervalTime);
         return () => clearInterval(interval);
@@ -128,24 +104,16 @@ const RequestView: React.FC<RequestViewProps> = () => {
 
     return (
         <>
-            <DispatcherLayout>
+            <SpecialistLayout>
                 <div id={ requestViewCSSVariables.mainContentId }>
                     <div id={ requestViewCSSVariables.mainColumnId }>
                         <div id={ requestViewCSSVariables.requestInfoId }>
                             <RequestInfoImmutable />
                         </div>
                         <div id={ requestViewCSSVariables.chatsId }>
-                            <div className={ requestViewCSSVariables.chatClass } >
+                            <div className={ requestViewCSSVariables.chatClassWide }>
                                 <Chat 
-                                    type={ 'customer' } 
-                                    textfieldRef={ textfieldCustomerRef } 
-                                    chatName={ 'Внешний чат' } 
-                                    sendHandler={ sendCustomerHandler }
-                                    updateMessages={ updateCustomerMessages } />
-                            </div>
-                            <div className={ requestViewCSSVariables.chatClass }>
-                                <Chat 
-                                    type={ 'inner' } 
+                                    type={ 'inner' }
                                     textfieldRef={ textfieldInnerRef } 
                                     chatName={ 'Внутренний чат' } 
                                     sendHandler={ sendInnerHandler }
@@ -154,7 +122,7 @@ const RequestView: React.FC<RequestViewProps> = () => {
                         </div>
                     </div>
                     <div id={ requestViewCSSVariables.additionalColumnId }>
-                        <RequestInfoMutable />
+                        <RequestInfoMutableSpec />
                     </div>
                 </div>
                 {   errorsVisible &&
@@ -165,7 +133,7 @@ const RequestView: React.FC<RequestViewProps> = () => {
                             { text: 'Закрыть', onClick: () => { setErrorsVisible(prev => !prev) } }
                         ]} />
                 }
-            </DispatcherLayout>
+            </SpecialistLayout>
         </>
     );
 };

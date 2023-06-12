@@ -1,0 +1,40 @@
+@use '../colors';
+@use '../general';
+
+$mainContentId: 'mainContentId';
+$appealsAndRequestsId: 'appealsAndRequestsId';
+$requestsId: 'requestsId';
+
+$main-content-width: 100%;
+$main-content-height: 100%;
+
+$appeals-and-requests-width: 100%;
+$appeals-and-requests-height: 100%;
+
+$requests-width: 100%;
+$requests-height: 100%;
+
+##{$mainContentId} {
+    display: flex;
+    flex-direction: column;
+    width: $main-content-width;
+    height: $main-content-height;
+
+    ##{$appealsAndRequestsId} {
+        display: flex;
+        flex-direction: row;
+        width: $appeals-and-requests-width;
+        height: $appeals-and-requests-height;
+
+        ##{$requestsId} {
+            width: $requests-width;
+            height: $requests-height;
+        }
+    }
+}
+
+:export {
+    mainContentId: $mainContentId;
+    appealsAndRequestsId: $appealsAndRequestsId;
+    requestsId: $requestsId;
+}

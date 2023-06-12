@@ -54,6 +54,7 @@ const RequestView = () => {
             setErrorsVisible(prev => !prev);
             return;
         }
+        if (!textfieldCustomerRef.current?.value) return;
         
         try {
             await axios.post(`${baseServerPath}/user-customer-messages`, {

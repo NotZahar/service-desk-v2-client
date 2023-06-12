@@ -1,18 +1,15 @@
 import { useTypedDispatch } from "@/hooks/redux";
-import { useState } from "react";
-import requestsCSSVariables from "../../styles/pages/dispatcher-requests.module.scss";
-import WorkWithRequests from "@/components/WorkWithRequests";
+import requestsCSSVariables from "../../styles/pages/specialist-requests.module.scss";
 import { useRouter } from "next/router";
 import { userInnerMessagesSlice } from "@/store/reducers/UserInnerMessagesSlice";
 import SpecialistLayout from "@/layouts/SpecialistLayout";
+import WorkWithRequestsSpec from "@/components/WorkWithRequestsSpec";
 
 const Requests = () => {
     const router = useRouter();
     
     const { resetUserInnerMessages } = userInnerMessagesSlice.actions;
     const dispatch = useTypedDispatch();
-
-    const [refreshRequestsTrigger, setRefreshRequestsTrigger] = useState(false);
 
     const openRequest = () => {
         dispatch(resetUserInnerMessages());
@@ -25,9 +22,8 @@ const Requests = () => {
                 <div id={ requestsCSSVariables.mainContentId }>
                     <div id={ requestsCSSVariables.appealsAndRequestsId }>
                         <div id={ requestsCSSVariables.requestsId }>
-                            <WorkWithRequests
-                                leftClickAppealHandler={ openRequest }
-                                refreshRequestsTrigger={ refreshRequestsTrigger } />
+                            <WorkWithRequestsSpec
+                                leftClickAppealHandler={ openRequest } />
                         </div>
                     </div>
                 </div>
