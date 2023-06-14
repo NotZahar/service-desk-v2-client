@@ -1,0 +1,118 @@
+@use '../colors';
+@use '../general';
+
+$mainContentId: 'mainContentId';
+$fileSystemColumnId: 'fileSystemColumnId';
+$workColumnId: 'workColumnId';
+$topPanelId: 'topPanelId';
+$fileContentId: 'fileContentId';
+
+$main-content-width: 100%;
+$main-content-height: 100%;
+
+$file-system-column-width: 30%;
+
+$work-column-width: 70%;
+
+##{$mainContentId} {
+    display: flex;
+    flex-direction: row;
+    width: $main-content-width;
+    height: $main-content-height;
+
+    ##{$fileSystemColumnId} {
+        display: flex;
+        flex-direction: column;
+        width: $file-system-column-width;
+        background-color: colors.$main-modal-color;
+        padding: 15px;
+
+        input {
+            width: 100%;
+            margin-bottom: 15px;
+            background-color: colors.$secondary-color-light;
+            color: colors.$main-color-dark;
+            border-style: none;
+            border-radius: general.$input-border-radius;
+            padding: general.$input-padding;
+            margin-bottom: general.$input-margin-bottom;
+            font-size: 16px;
+    
+            &::placeholder {
+                color: colors.$secondary-color-dark;
+                opacity: general.$input-placeholder-opacity;
+            }
+    
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    ##{$workColumnId} {
+        display: flex;
+        flex-direction: column;
+        width: $work-column-width;
+
+        ##{$topPanelId} {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: fit-content;
+            padding: 15px 15px 0px 15px;
+
+            button {
+                width: fit-content;
+                height: fit-content;
+                border-radius: general.$button-border-radius;
+                border-style: none;
+                background-color: colors.$main-accept-color;
+                color: colors.$main-color-dark;
+                font-size: general.$button-font-size;
+                padding: general.$button-padding;
+                transition: background-color general.$button-transition-time, color general.$button-transition-time;
+
+                &:first-child {
+                    margin-right: general.$button-margin-right;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: colors.$main-color-dark;
+                    color: colors.$main-color-light;
+                }
+            }
+        }
+
+        ##{$fileContentId} {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            padding: 15px;
+
+            textarea {
+                width: 100%;
+                height: 100%;
+                background-color: colors.$main-color-dark;
+                color: colors.$main-color-light;
+                border-radius: general.$button-border-radius;
+                border-style: none;
+                padding: general.$input-padding;
+                resize: none;
+    
+                &:focus {
+                    outline: none;
+                }
+            }
+        }
+    }
+}
+
+:export {
+    mainContentId: $mainContentId;
+    fileSystemColumnId: $fileSystemColumnId;
+    workColumnId: $workColumnId;
+    topPanelId: $topPanelId;
+    fileContentId: $fileContentId;
+}

@@ -1,0 +1,16 @@
+@use '../colors';
+@use '../general';
+@use '../fonts';
+
+$fileSystemClass: 'fileSystemClass';
+
+.#{$fileSystemClass} {
+    background-color: colors.$main-modal-color;
+    color: colors.$main-color-light;
+    font-size: 16px;
+    font-family: fonts.$main-font;
+}
+
+:export {
+    fileSystemClass: $fileSystemClass;
+}
