@@ -9,6 +9,7 @@ $fileSystemClass: 'fileSystemClass';
     color: colors.$main-color-light;
     font-size: 16px;
     font-family: fonts.$main-font;
+    overflow: scroll;
 }
 
 :export {

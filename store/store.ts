@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./reducers/UserSlice"; 
 import authReducer from "./reducers/AuthSlice";
 import appealsReducer from "./reducers/AppealsSlice";
+import kbaseReducer from "./reducers/KBaseSlice";
 import requestsReducer from "./reducers/RequestsSlice";
 import customersReducer from "./reducers/CustomersSlice";
 import employeesReducer from "./reducers/EmployeesSlice";
@@ -34,18 +35,9 @@ const storage = typeof window !== 'undefined' ? createwebStorage('local') : crea
 const persistConfig = {
     key: 'root',
     storage: storage,
-    blacklist: [
-        'appealsReducer', 
-        'currentAppealReducer', 
-        'appealSelectionReducer',
-        'requestsReducer',
-        'currentRequestReducer',
-        'userCustomerMessagesReducer',
-        'userInnerMessagesReducer',
-        'customersReducer',
-        'employeesReducer',
-        'currentCustomerReducer',
-        'currentEmployeeReducer'
+    whitelist: [
+        'userReducer', 
+        'authReducer'
     ] 
 }
 
@@ -62,7 +54,8 @@ const rootReducer = combineReducers({
     customersReducer,
     employeesReducer,
     currentCustomerReducer,
-    currentEmployeeReducer
+    currentEmployeeReducer,
+    kbaseReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

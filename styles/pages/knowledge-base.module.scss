@@ -6,6 +6,7 @@ $fileSystemColumnId: 'fileSystemColumnId';
 $workColumnId: 'workColumnId';
 $topPanelId: 'topPanelId';
 $fileContentId: 'fileContentId';
+$cancelBtnId: 'cancelBtnId';
 
 $main-content-width: 100%;
 $main-content-height: 100%;
@@ -98,6 +99,7 @@ $work-column-width: 70%;
                 color: colors.$main-color-light;
                 border-radius: general.$button-border-radius;
                 border-style: none;
+                font-size: 20px;
                 padding: general.$input-padding;
                 resize: none;
     
@@ -109,10 +111,21 @@ $work-column-width: 70%;
     }
 }
 
+##{$cancelBtnId} {
+    background-color: colors.$main-color-light !important;
+    color: colors.$main-color-dark !important;
+
+    &:hover {
+        background-color: colors.$main-color-dark !important;
+        color: colors.$main-color-light !important;
+    }
+}
+
 :export {
     mainContentId: $mainContentId;
     fileSystemColumnId: $fileSystemColumnId;
     workColumnId: $workColumnId;
     topPanelId: $topPanelId;
     fileContentId: $fileContentId;
+    cancelBtnId: $cancelBtnId;
 }

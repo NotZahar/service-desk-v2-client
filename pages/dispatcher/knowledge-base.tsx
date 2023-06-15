@@ -1,45 +1,69 @@
 import KnowledgeBaseFileSystem from "@/components/KnowledgeBaseFileSystem";
+import Modal from "@/components/Modal";
 import DispatcherLayout from "@/layouts/DispatcherLayout";
-import { DataNode } from "antd/es/tree";
+import { useRef, useState } from "react";
 import kbaseCSSVariables from "../../styles/pages/knowledge-base.module.scss";
 
-const treeData: DataNode[] = [
-    {
-        title: 'parent 0',
-        key: '0-0',
-        children: [
-            { title: 'leaf 0-0', key: '0-0-0', isLeaf: true },
-            { title: 'leaf 0-1', key: '0-0-1', isLeaf: true }
-        ]
-    },
-    {
-        title: 'parent 1',
-        key: '0-1',
-        children: [
-            { title: 'leaf 1-0', key: '0-1-0', isLeaf: true },
-            { title: 'leaf 1-1', key: '0-1-1', isLeaf: true }
-        ]
-    }
-];
-
 const KnowledgeBase = () => {
+    const fileContentRef = useRef<HTMLTextAreaElement>(null);
+
+    const [newFileOpened, setNewFileOpened] = useState(false);
+    const [newFileErrorsVisible, setNewFileErrorsVisible] = useState(false);
+    const [newFileErrorMessages, setNewFileErrorMessages] = useState<string[]>();
+
+    const createNewFile = () => {
+        
+    };
+
+    const cancelNewFile = () => {
+        setNewFileOpened(prev => !prev)
+    };
+
     return (
         <>
             <DispatcherLayout>
                 <div id={ kbaseCSSVariables.mainContentId }>
                     <div id={ kbaseCSSVariables.fileSystemColumnId }>
-                        <input type="text" placeholder="Поиск по базе знаний..." />
-                        <KnowledgeBaseFileSystem treeData={ treeData } />
+                        <KnowledgeBaseFileSystem fileContentRef={ fileContentRef } />
                     </div>
                     <div id={ kbaseCSSVariables.workColumnId }>
                         <div id={ kbaseCSSVariables.topPanelId }>
-                            <button type="button">Создать файл</button>
+                            <button type="button" onClick={ () => setNewFileOpened(prev => !prev) } >Создать файл</button>
                             <button type="button">Создать раздел</button>
                         </div>
                         <div id={ kbaseCSSVariables.fileContentId }>
-                            <textarea readOnly></textarea>
+                            <textarea ref={ fileContentRef } readOnly></textarea>
                         </div>
                     </div>
+                    {   newFileOpened &&
+                        <Modal
+                            buttons={[
+                                { text: 'Создать', onClick: createNewFile },
+                                { text: 'Отмена', id: kbaseCSSVariables.cancelBtnId, onClick: cancelNewFile }
+                            ]}
+                            widthFitContent={ true } >
+                            {/* <NewRequestModal 
+                                defaultStatus={ defaultStatus }
+                                themeInputRef={ themeInputRef }
+                                prioritiesSelectRef={ prioritiesSelectRef }
+                                statusesSelectRef={ statusesSelectRef }
+                                typesSelectRef={ typesSelectRef }
+                                customersInputRef={ customersInputRef }
+                                contractsInputRef={ contractsInputRef }
+                                controllersInputRef={ controllersInputRef }
+                                executorsInputRef={ executorsInputRef }
+                                plannedDateInputRef={ plannedDateInputRef }
+                                descriptionInputRef={ descriptionInputRef } /> */}
+                        </Modal>
+                    }
+                    {   newFileErrorsVisible &&
+                            <Modal
+                                title="Ошибка!"
+                                errors={ newFileErrorMessages && newFileErrorMessages.map((msg) => { return { text: msg }; }) }
+                                buttons={[
+                                    { text: 'Закрыть', onClick: () => { setNewFileErrorsVisible(prev => !prev) } }
+                                ]} />
+                    }
                 </div>
             </DispatcherLayout>
         </>

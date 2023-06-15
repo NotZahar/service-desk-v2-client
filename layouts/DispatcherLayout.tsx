@@ -10,6 +10,7 @@ import { currentEmployeeSlice } from "@/store/reducers/CurrentEmployeeSlice";
 import { currentRequestSlice } from "@/store/reducers/CurrentRequestSlice";
 import { customersSlice } from "@/store/reducers/CustomersSlice";
 import { employeesSlice } from "@/store/reducers/EmployeesSlice";
+import { kbaseSlice } from "@/store/reducers/KBaseSlice";
 import { requestsSlice } from "@/store/reducers/RequestsSlice";
 import { userCustomerMessagesSlice } from "@/store/reducers/UserCustomerMessagesSlice";
 import { userInnerMessagesSlice } from "@/store/reducers/UserInnerMessagesSlice";
@@ -39,6 +40,7 @@ const DispatcherLayout: React.FC<DispatcherLayoutProps> = ({ children }) => {
     const { resetRequests } = requestsSlice.actions;
     const { resetUserCustomerMessages } = userCustomerMessagesSlice.actions;
     const { resetUserInnerMessages } = userInnerMessagesSlice.actions;
+    const { resetKBase } = kbaseSlice.actions;
 
     const toRequests = () => { 
         router.push('/dispatcher/requests'); 
@@ -62,6 +64,7 @@ const DispatcherLayout: React.FC<DispatcherLayoutProps> = ({ children }) => {
         dispatch(resetRequests());
         dispatch(resetUserCustomerMessages());
         dispatch(resetUserInnerMessages());
+        dispatch(resetKBase());
         
         router.push('/auth/choice');
     };
