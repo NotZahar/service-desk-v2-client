@@ -13,12 +13,13 @@ const { DirectoryTree } = Tree;
 
 interface KnowledgeBaseFileSystemProps {
     fileContentRef: RefObject<HTMLTextAreaElement>;
+    refreshTreeTrigger: boolean;
 }
 
-const KnowledgeBaseFileSystem: React.FC<KnowledgeBaseFileSystemProps> = ({ fileContentRef }) => {
+const KnowledgeBaseFileSystem: React.FC<KnowledgeBaseFileSystemProps> = ({ fileContentRef, refreshTreeTrigger }) => {
     const { token } = useTypedSelector(state => state.authReducer);
     const { treeData, error } = useTypedSelector(state => state.kbaseReducer);
-    const { setKBaseSuccess, setKBaseError } = kbaseSlice.actions;
+    const { setKBaseSuccess, setKBaseError, setKBaseSelectedFile } = kbaseSlice.actions;
     const dispatch = useTypedDispatch();
     
     const [isLoading, setLoading] = useState(false);
@@ -37,7 +38,7 @@ const KnowledgeBaseFileSystem: React.FC<KnowledgeBaseFileSystemProps> = ({ fileC
             dispatch(setKBaseError(String(err)));
             setLoading(false);
         });
-    }, []);
+    }, [refreshTreeTrigger]);
     
     const searchPattern = (data: FileInfoNode[], pattern: string): string[] => {
         let foundKeys: string[] = [];
@@ -72,6 +73,8 @@ const KnowledgeBaseFileSystem: React.FC<KnowledgeBaseFileSystemProps> = ({ fileC
     };
     
     const onSelect: DirectoryTreeProps['onSelect'] = (keys) => {
+        dispatch(setKBaseSelectedFile(keys[0] as string));
+
         fetch(`${baseServerPath}/knowledge-base/file?path=${keys[0]}`, { 
             headers: { Authorization: token || ''} 
         })
