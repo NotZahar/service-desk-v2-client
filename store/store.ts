@@ -13,6 +13,7 @@ import currentEmployeeReducer from "./reducers/CurrentEmployeeSlice";
 import appealSelectionReducer from "./reducers/AppealSelectionSlice";
 import userCustomerMessagesReducer from "./reducers/UserCustomerMessagesSlice";
 import userInnerMessagesReducer from "./reducers/UserInnerMessagesSlice";
+import statsReducer from "./reducers/StatsSlice";
 import { persistReducer } from "redux-persist";
 import createwebStorage from "redux-persist/lib/storage/createWebStorage";
 
@@ -55,7 +56,8 @@ const rootReducer = combineReducers({
     employeesReducer,
     currentCustomerReducer,
     currentEmployeeReducer,
-    kbaseReducer
+    kbaseReducer,
+    statsReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

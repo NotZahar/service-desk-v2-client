@@ -1,0 +1,59 @@
+@use '../colors';
+@use '../general';
+
+$mainContentId: 'mainContentId';
+$dataListId: 'dataListId';
+$chartId: 'chartId';
+$dataClass: 'dataClass';
+$dataHeaderClass: 'dataHeaderClass';
+
+$main-content-width: 100%;
+$main-content-height: 100%;
+
+##{$mainContentId} {
+    display: flex;
+    flex-direction: column;
+    width: $main-content-width;
+    height: $main-content-height;
+    padding: 15px;
+
+    ##{$dataListId} {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        height: 20%;
+
+        .#{$dataClass} {
+            display: flex;
+            flex-direction: row;
+            font-size: 20px;
+            margin-bottom: 5px;
+
+            .#{$dataHeaderClass} {
+                color: colors.$tertiary-color-light;
+                margin-right: 10px;
+            }
+        }
+    }
+
+    ##{$chartId} {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-radius: general.$input-border-radius;
+        width: 100%;
+        height: 80%;
+        background-color: colors.$main-color-light;
+        padding: 15px 0;
+    }
+}
+
+:export {
+    mainContentId: $mainContentId;
+    dataListId: $dataListId;
+    chartId: $chartId;
+    dataClass: $dataClass;
+    dataHeaderClass: $dataHeaderClass;
+}
